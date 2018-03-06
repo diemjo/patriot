@@ -1,0 +1,16 @@
+[
+{
+  "modid": "patriot",
+  "name": "Patriot",
+  "description": "Adds the one and only PATRIOT to the game",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Tenshi79"],
+  "credits": "Gintama",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
