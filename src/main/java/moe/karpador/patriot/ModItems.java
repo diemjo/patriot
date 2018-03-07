@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -17,17 +18,17 @@ public class ModItems {
 
     public static ItemPatriot itemPatriot;
     public static ItemMeguminStaff itemMeguminStaff;
-
+    
     public static ItemArmor.ArmorMaterial meguminMaterial = ItemArmor.ArmorMaterial.LEATHER; // EnumHelper.addArmorMaterial()
     public static ItemMeguminCloths itemMeguminHat;
     public static ItemMeguminCloths itemMeguminChest;
     public static ItemMeguminCloths itemMeguminSkirt;
     public static ItemMeguminCloths itemMeguminShoes;
 
-    public static List<Item> items = new ArrayList<>();
+    private static List<Item> items = new ArrayList<>();
 
     public static void init() {
-        itemPatriot = new ItemPatriot();
+        itemPatriot = new ItemPatriot(Item.ToolMaterial.DIAMOND);
         itemPatriot.setRegistryName(new ResourceLocation(Patriot.MODID, ItemPatriot.NAME));
         items.add(itemPatriot);
 
@@ -69,5 +70,8 @@ public class ModItems {
         //mesher.register(item, 0, modelItem);
     }
 
+    public static void registerItems(RegistryEvent.Register<Item> event) {
+        items.forEach(item -> event.getRegistry().register(item));
+    }
 
 }
