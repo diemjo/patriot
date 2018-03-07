@@ -12,6 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.translation.LanguageMap;
 import net.minecraft.world.World;
 
 public class ItemMeguminStaff extends Item {
@@ -26,6 +28,11 @@ public class ItemMeguminStaff extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
+        return String.format("item.%s%s", Patriot.RESOURCE_PREFIX, NAME); //item.patriot:item_megumin_staff
+    }
+
+    @Override
+    public String getUnlocalizedName() {
         return String.format("item.%s%s", Patriot.RESOURCE_PREFIX, NAME); //item.patriot:item_megumin_staff
     }
 
@@ -48,7 +55,7 @@ public class ItemMeguminStaff extends Item {
             lastUsageTime = systemTime;
         } else {
             if (worldIn.isRemote) {
-                playerIn.sendMessage(new TextComponentString(String.format("%s needs to recharge", getRegistryName())));
+                playerIn.sendMessage(new TextComponentTranslation(String.format("%s needs to recharge", playerIn.getHeldItemMainhand().getDisplayName())));
             }
         }
 
