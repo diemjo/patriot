@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "patriot:items/item_meguminstaff"
+		"layer0": "patriot:items/item_megumin_staff"
 	}
 }

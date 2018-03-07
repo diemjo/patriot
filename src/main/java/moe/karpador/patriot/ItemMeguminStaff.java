@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class ItemMeguminStaff extends Item {
 
-    public static final String NAME = "item_meguminstaff";
+    public static final String NAME = "item_megumin_staff";
     private long lastUsageTime;
 
     public ItemMeguminStaff() {
@@ -27,7 +27,7 @@ public class ItemMeguminStaff extends Item {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return "item." + Patriot.RESOURCE_PREFIX +NAME; //item.patriot:item_meguminstaff
+        return "item." + Patriot.RESOURCE_PREFIX +NAME; //item.patriot:item_megumin_staff
     }
 
     @Override
