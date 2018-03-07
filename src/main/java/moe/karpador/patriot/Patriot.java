@@ -30,7 +30,6 @@ public class Patriot {
     public void preInit(FMLPreInitializationEvent event){
         logger = event.getModLog();
         proxy.preInit(event);
-        logger.info("##### I GET TO THIS CODE IN PREINIT");
     }
 
     @EventHandler
@@ -38,8 +37,7 @@ public class Patriot {
         // some example code
         // logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         proxy.init(event);
-        logger.info("##### I GET TO THIS CODE IN INIT");
-        
+
     }
 
     @EventHandler
@@ -49,7 +47,6 @@ public class Patriot {
 
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
-        Patriot.logger.info("##### I GOT TO THE REGISTER EVENT");
         ModItems.registerItems(event);
     }
 
