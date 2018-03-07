@@ -49,7 +49,7 @@ public class Patriot {
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         Patriot.logger.info("##### I GOT TO THE REGISTER EVENT");
-        ModItems.items.forEach(item -> event.getRegistry().register(item));
+        ModItems.registerItems(event);
     }
 
     public static final CreativeTabs PATRIOT_TAB = new CreativeTabs(Patriot.MODID) {

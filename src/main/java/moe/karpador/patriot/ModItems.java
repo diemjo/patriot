@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -16,10 +17,10 @@ public class ModItems {
     public static ItemPatriot itemPatriot;
     public static ItemMeguminStaff itemMeguminStaff;
 
-    public static List<Item> items = new ArrayList<>();
+    private static List<Item> items = new ArrayList<>();
 
     public static void init() {
-        itemPatriot = new ItemPatriot();
+        itemPatriot = new ItemPatriot(Item.ToolMaterial.DIAMOND);
         itemPatriot.setRegistryName(new ResourceLocation(Patriot.MODID, ItemPatriot.NAME));
         items.add(itemPatriot);
 
@@ -39,5 +40,8 @@ public class ModItems {
         mesher.register(itemMeguminStaff, 0, modelItemMeguminStaff);
     }
 
+    public static void registerItems(RegistryEvent.Register<Item> event) {
+        items.forEach(item -> event.getRegistry().register(item));
+    }
 
 }
