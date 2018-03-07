@@ -18,7 +18,7 @@ public class ModItems {
 
     public static ItemPatriot itemPatriot;
     public static ItemMeguminStaff itemMeguminStaff;
-    
+
     public static ItemArmor.ArmorMaterial meguminMaterial = ItemArmor.ArmorMaterial.LEATHER; // EnumHelper.addArmorMaterial()
     public static ItemMeguminCloths itemMeguminHat;
     public static ItemMeguminCloths itemMeguminChest;
@@ -63,11 +63,9 @@ public class ModItems {
     }
 
     private static void registerArmor(ItemMeguminCloths item, ItemModelMesher mesher) {
-        //ModelResourceLocation modelItem = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, item.name), "inventory");
-        //ModelLoader.registerItemVariants(item, modelItem);
-        //ModelResourceLocation modelItem = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, item.name), "inventory");
-        ModelLoader.setCustomModelResourceLocation(item,0,new ModelResourceLocation(Patriot.MODID,item.name));
-        //mesher.register(item, 0, modelItem);
+        ModelResourceLocation modelItem = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, item.name), "inventory");
+        ModelLoader.registerItemVariants(item, modelItem);
+        mesher.register(item, 0, modelItem);
     }
 
     public static void registerItems(RegistryEvent.Register<Item> event) {
