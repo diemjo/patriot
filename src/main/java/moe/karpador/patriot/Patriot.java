@@ -39,6 +39,7 @@ public class Patriot {
         // logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         proxy.init(event);
         logger.info("##### I GET TO THIS CODE IN INIT");
+        
     }
 
     @EventHandler
