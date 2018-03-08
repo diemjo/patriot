@@ -1,12 +1,18 @@
 package moe.karpador.patriot;
 
+import mcp.MethodsReturnNonnullByDefault;
 import moe.karpador.patriot.network.ExplosionMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -53,9 +59,21 @@ public class ItemMeguminStaff extends Item {
                 }
             }
             lastUsageTime = systemTime;
+            Potion potion = Potion.getPotionById(2);
+            potion.applyAttributesModifiersToEntity(playerIn, playerIn.getAttributeMap(), 7);
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    potion.removeAttributesModifiersFromEntity(playerIn, playerIn.getAttributeMap(), 7);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+            worldIn.playSound(playerIn, playerIn.getPosition(), PatriotSoundHandler.explosion, SoundCategory.MUSIC, 1, 1);
         } else {
             if (worldIn.isRemote) {
-                playerIn.sendMessage(new TextComponentTranslation(String.format("%s needs to recharge", playerIn.getHeldItemMainhand().getDisplayName())));
+                //playerIn.sendMessage(new TextComponentTranslation(String.format("%s needs to recharge", playerIn.getHeldItemMainhand().getDisplayName())));
+                playerIn.sendMessage(new TextComponentString("You are exhausted from casting magic and need to rest..."));
             }
         }
 

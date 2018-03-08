@@ -9,6 +9,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent event) {
         ModItems.init();
+        PatriotSoundHandler.init();
         PatriotPacketHandler.setWrapper();
     }
 
