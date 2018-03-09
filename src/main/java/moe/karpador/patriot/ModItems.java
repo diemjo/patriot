@@ -21,8 +21,8 @@ public class ModItems {
     public static ItemPatriot itemPatriot;
     public static ItemMeguminStaff itemMeguminStaff;
 
-    public static ItemArmor.ArmorMaterial meguminMaterialL = ItemArmor.ArmorMaterial.LEATHER; // EnumHelper.addArmorMaterial()
-    public static ItemArmor.ArmorMaterial meguminMaterial = EnumHelper.addArmorMaterial("megumin",Patriot.MODID +":megumin",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
+    public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material",Patriot.MODID +":megumin_hat",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
+    public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.MODID +":megumin_cloths",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
     public static ItemMeguminCloths itemMeguminHat;
     public static ItemMeguminCloths itemMeguminChest;
     public static ItemMeguminCloths itemMeguminSkirt;
@@ -40,10 +40,10 @@ public class ModItems {
         itemMeguminStaff.setRegistryName(new ResourceLocation(Patriot.MODID, ItemMeguminStaff.NAME));
         items.add(itemMeguminStaff);
 
-        itemMeguminHat = new ItemMeguminCloths(meguminMaterial, 1, EntityEquipmentSlot.HEAD, "armor_megumin_hat");
-        itemMeguminChest = new ItemMeguminCloths(meguminMaterialL, 1, EntityEquipmentSlot.CHEST, "armor_megumin_chest");
-        itemMeguminSkirt = new ItemMeguminCloths(meguminMaterialL, 2, EntityEquipmentSlot.LEGS, "armor_megumin_skirt");
-        itemMeguminShoes = new ItemMeguminCloths(meguminMaterialL, 1, EntityEquipmentSlot.FEET, "armor_megumin_shoes");
+        itemMeguminHat = new ItemMeguminCloths(meguminHatMaterial, 1, EntityEquipmentSlot.HEAD, "armor_megumin_hat");
+        itemMeguminChest = new ItemMeguminCloths(meguminClothsMaterial, 1, EntityEquipmentSlot.CHEST, "armor_megumin_chest");
+        itemMeguminSkirt = new ItemMeguminCloths(meguminClothsMaterial, 2, EntityEquipmentSlot.LEGS, "armor_megumin_skirt");
+        itemMeguminShoes = new ItemMeguminCloths(meguminClothsMaterial, 1, EntityEquipmentSlot.FEET, "armor_megumin_shoes");
         items.add(itemMeguminHat);
         items.add(itemMeguminChest);
         items.add(itemMeguminSkirt);
