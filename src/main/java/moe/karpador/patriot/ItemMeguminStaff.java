@@ -1,5 +1,6 @@
 package moe.karpador.patriot;
 
+import com.sun.istack.internal.NotNull;
 import mcp.MethodsReturnNonnullByDefault;
 import moe.karpador.patriot.network.ExplosionMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
@@ -46,25 +47,29 @@ public class ItemMeguminStaff extends Item {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         long systemTime = System.currentTimeMillis();
         if (systemTime-lastUsageTime>3000) {
+            BlockPos blockPos = null;
             if (worldIn.isRemote) {
                 RayTraceResult res = Minecraft.getMinecraft().getRenderViewEntity().rayTrace(50, 1f);
                 if (res!=null && res.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    BlockPos pos = res.getBlockPos();
+                    blockPos = res.getBlockPos();
                     //playerIn.world.createExplosion(null, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, 5f, true);
-                    PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
+                    //PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
                 } else {
                     Vec3d vec = Minecraft.getMinecraft().getRenderViewEntity().getLookVec().scale(50);
-                    BlockPos pos = Minecraft.getMinecraft().getRenderViewEntity().getPosition().add(vec.x, vec.y, vec.z);
-                    PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
+                    blockPos = Minecraft.getMinecraft().getRenderViewEntity().getPosition().add(vec.x, vec.y, vec.z);
                 }
             }
             lastUsageTime = systemTime;
             Potion potion = Potion.getPotionById(2);
             potion.applyAttributesModifiersToEntity(playerIn, playerIn.getAttributeMap(), 7);
+            final BlockPos pos = blockPos;
             new Thread(() -> {
                 try {
                     Thread.sleep(2000);
                     potion.removeAttributesModifiersFromEntity(playerIn, playerIn.getAttributeMap(), 7);
+                    if  (worldIn.isRemote) {
+                        PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
