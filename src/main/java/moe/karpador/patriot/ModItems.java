@@ -2,11 +2,13 @@ package moe.karpador.patriot;
 
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -19,11 +21,13 @@ public class ModItems {
     public static ItemPatriot itemPatriot;
     public static ItemMeguminStaff itemMeguminStaff;
 
-    public static ItemArmor.ArmorMaterial meguminMaterial = ItemArmor.ArmorMaterial.LEATHER; // EnumHelper.addArmorMaterial()
+    public static ItemArmor.ArmorMaterial meguminMaterialL = ItemArmor.ArmorMaterial.LEATHER; // EnumHelper.addArmorMaterial()
+    public static ItemArmor.ArmorMaterial meguminMaterial = EnumHelper.addArmorMaterial("megumin",Patriot.MODID +":megumin",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
     public static ItemMeguminCloths itemMeguminHat;
     public static ItemMeguminCloths itemMeguminChest;
     public static ItemMeguminCloths itemMeguminSkirt;
     public static ItemMeguminCloths itemMeguminShoes;
+    public static MeguminHatModel meguminHatModel;
 
     private static List<Item> items = new ArrayList<>();
 
@@ -37,9 +41,9 @@ public class ModItems {
         items.add(itemMeguminStaff);
 
         itemMeguminHat = new ItemMeguminCloths(meguminMaterial, 1, EntityEquipmentSlot.HEAD, "armor_megumin_hat");
-        itemMeguminChest = new ItemMeguminCloths(meguminMaterial, 1, EntityEquipmentSlot.CHEST, "armor_megumin_chest");
-        itemMeguminSkirt = new ItemMeguminCloths(meguminMaterial, 2, EntityEquipmentSlot.LEGS, "armor_megumin_skirt");
-        itemMeguminShoes = new ItemMeguminCloths(meguminMaterial, 1, EntityEquipmentSlot.FEET, "armor_megumin_shoes");
+        itemMeguminChest = new ItemMeguminCloths(meguminMaterialL, 1, EntityEquipmentSlot.CHEST, "armor_megumin_chest");
+        itemMeguminSkirt = new ItemMeguminCloths(meguminMaterialL, 2, EntityEquipmentSlot.LEGS, "armor_megumin_skirt");
+        itemMeguminShoes = new ItemMeguminCloths(meguminMaterialL, 1, EntityEquipmentSlot.FEET, "armor_megumin_shoes");
         items.add(itemMeguminHat);
         items.add(itemMeguminChest);
         items.add(itemMeguminSkirt);
@@ -60,6 +64,7 @@ public class ModItems {
         registerArmor(itemMeguminChest,mesher);
         registerArmor(itemMeguminSkirt,mesher);
         registerArmor(itemMeguminShoes,mesher);
+        meguminHatModel = new MeguminHatModel();
     }
 
     private static void registerArmor(ItemMeguminCloths item, ItemModelMesher mesher) {
