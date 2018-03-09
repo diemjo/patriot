@@ -1,8 +1,9 @@
 item.patriot:item_patriot.name=The One And Only Patriot
-item.patriot:item_meguminstaff.name=Black Staff of Explosion
+item.patriot:item_megumin_staff.name=Black Staff of Explosion
 item.patriot:armor_megumin_hat.name=Megumin Hat
 item.patriot:armor_megumin_chest.name=Megumin Chest
 item.patriot:armor_megumin_skirt.name=Megumin Skirt
 item.patriot:armor_megumin_shoes.name=Megumin Shoes
+>>>>>>> 67d69d0b197e04ca64fe63b4a2e73ec793cf7d87
 
 itemGroup.patriot=Patriot

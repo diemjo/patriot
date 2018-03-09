@@ -1,0 +1,7 @@
+{
+	"explosion" : {
+		"category": "music",
+		"sounds": ["patriot:explosion"],
+		"subtitle": "patriot.subtitle.explosion"
+	}
+}
