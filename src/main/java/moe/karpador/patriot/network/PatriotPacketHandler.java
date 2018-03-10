@@ -15,6 +15,7 @@ public class PatriotPacketHandler {
     public static void setWrapper() {
         wrapper = NetworkRegistry.INSTANCE.newSimpleChannel(Patriot.MODID);
         wrapper.registerMessage(PatriotMessageHandler.class, ExplosionMessage.class, getID(), Side.SERVER);
+        wrapper.registerMessage(LightMessageHandler.class, LightMessage.class, getID(), Side.CLIENT);
         Patriot.logger.info("NetworkWrapper registered");
     }
 }

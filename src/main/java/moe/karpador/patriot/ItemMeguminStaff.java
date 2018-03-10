@@ -1,6 +1,7 @@
 package moe.karpador.patriot;
 
 import moe.karpador.patriot.network.ExplosionMessage;
+import moe.karpador.patriot.network.LightMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -19,8 +20,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import java.util.List;
-
-import static java.lang.Float.min;
 
 public class ItemMeguminStaff extends Item {
 
@@ -61,7 +60,7 @@ public class ItemMeguminStaff extends Item {
                 }
                 Entity entity = getEntityHit(view, maxDistance);
                 if (entity!=null) {
-                    playerIn.sendMessage(new TextComponentString(entity.getName()));
+                    //playerIn.sendMessage(new TextComponentString(entity.getName()));
                     BlockPos entityPos = entity.getPosition();
                     if (view.getPosition().getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ()) > view.getPosition().getDistance(entityPos.getX(), entityPos.getY(), entityPos.getZ())) {
                         blockPos = entityPos;
@@ -73,6 +72,9 @@ public class ItemMeguminStaff extends Item {
             if (potion!=null)
                 potion.applyAttributesModifiersToEntity(playerIn, playerIn.getAttributeMap(), 7);
             final BlockPos pos = blockPos;
+            if (worldIn.isRemote) {
+                PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), true));
+            }
             new Thread(() -> {
                 try {
                     Thread.sleep(2000);
@@ -80,6 +82,7 @@ public class ItemMeguminStaff extends Item {
                     potion.removeAttributesModifiersFromEntity(playerIn, playerIn.getAttributeMap(), 7);
                     if  (worldIn.isRemote) {
                         PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
+                        PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), false));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -126,7 +129,7 @@ public class ItemMeguminStaff extends Item {
             RayTraceResult res = aabb.calculateIntercept(eyeVec, eyeVec.add(entityLook.scale(distance)));
             //entity.sendMessage(new TextComponentString("raytracing from "+eyeVec+" with look "+entityLook.scale(distance)+" to "+e.getPositionVector()));
             if (res!=null) {
-                player.sendMessage(new TextComponentString(res.toString()));
+                //player.sendMessage(new TextComponentString(res.toString()));
                 float d = (float) eyeVec.distanceTo(res.hitVec);
                 if (d < dist) {
                     dist = d;

@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
@@ -108,6 +109,9 @@ public class MeguminHatModel extends ModelBiped {
             model.mirror = true;
         }
 
+        bipedHead.cubeList.clear();
+        bipedHeadwear.cubeList.clear();
+
         bipedHead.addChild(Groundplate);
         bipedHead.addChild(Sideplate);
         bipedHead.addChild(Frontplate);
@@ -124,6 +128,7 @@ public class MeguminHatModel extends ModelBiped {
         bipedHead.addChild(middle_meg);
         bipedHead.addChild(high_meg);
         bipedHead.addChild(eyepatch);
+
 
     }
 
