@@ -18,7 +18,6 @@ public class ItemMeguminCloths extends ItemArmor {
         super(materialIn, renderIndexIn, equipmentSlotIn);
         name = itemName;
         setCreativeTab(Patriot.PATRIOT_TAB);
-        //this.setUnlocalizedName(ItemMeguminCloths.name);
         setRegistryName(new ResourceLocation(Patriot.MODID, name));
     }
 
