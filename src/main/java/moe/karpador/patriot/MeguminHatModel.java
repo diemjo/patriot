@@ -87,7 +87,7 @@ public class MeguminHatModel extends ModelBiped {
         this.Frontplate.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.Frontplate.addBox(-8.0F, -7.599999999999989F, -10.0F, 16, 1, 20, 0.0F);
 
-        modelList=new ArrayList<>();
+        /*modelList=new ArrayList<>();
         modelList.add(Groundplate);
         modelList.add(Sideplate);
         modelList.add(Frontplate);
@@ -103,11 +103,9 @@ public class MeguminHatModel extends ModelBiped {
         modelList.add(lower_meg);
         modelList.add(middle_meg);
         modelList.add(high_meg);
-        modelList.add(eyepatch);
-        for(ModelRenderer model: modelList) {
-            model.mirror = true;
-        }
-
+        modelList.add(eyepatch);*/
+        bipedHead.cubeList.clear();
+        bipedHeadwear.cubeList.clear();
         bipedHead.addChild(Groundplate);
         bipedHead.addChild(Sideplate);
         bipedHead.addChild(Frontplate);
@@ -124,7 +122,6 @@ public class MeguminHatModel extends ModelBiped {
         bipedHead.addChild(middle_meg);
         bipedHead.addChild(high_meg);
         bipedHead.addChild(eyepatch);
-
     }
 
     @Override
