@@ -1,8 +1,11 @@
 package moe.karpador.patriot;
 
+import com.sun.istack.internal.NotNull;
+import mcp.MethodsReturnNonnullByDefault;
 import moe.karpador.patriot.network.ExplosionMessage;
 import moe.karpador.patriot.network.LightMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,7 +20,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.Sys;
 
 import java.util.List;
 
@@ -42,63 +49,77 @@ public class ItemMeguminStaff extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         long systemTime = System.currentTimeMillis();
         if (systemTime-lastUsageTime>3000) {
-            BlockPos blockPos = null;
-            float maxDistance = 50;
-            if (worldIn.isRemote) {
-                Entity view = Minecraft.getMinecraft().getRenderViewEntity();
-                RayTraceResult res = view.rayTrace(maxDistance, 1f);
-                if (res!=null && res.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    blockPos = res.getBlockPos();
-                    //playerIn.world.createExplosion(null, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, 5f, true);
-                    //PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
-                } else {
-                    Vec3d vec = Minecraft.getMinecraft().getRenderViewEntity().getLookVec().scale(50);
-                    blockPos = Minecraft.getMinecraft().getRenderViewEntity().getPosition().add(vec.x, vec.y, vec.z);
-                }
-                Entity entity = getEntityHit(view, maxDistance);
-                if (entity!=null) {
-                    //playerIn.sendMessage(new TextComponentString(entity.getName()));
-                    BlockPos entityPos = entity.getPosition();
-                    if (view.getPosition().getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ()) > view.getPosition().getDistance(entityPos.getX(), entityPos.getY(), entityPos.getZ())) {
-                        blockPos = entityPos;
-                    }
-                }
-            }
-            lastUsageTime = systemTime;
-            Potion potion = Potion.getPotionById(2);
-            if (potion!=null)
-                potion.applyAttributesModifiersToEntity(playerIn, playerIn.getAttributeMap(), 7);
-            final BlockPos pos = blockPos;
-            if (worldIn.isRemote) {
-                PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), true));
-            }
-            new Thread(() -> {
-                try {
-                    Thread.sleep(2000);
-                    if (potion!=null)
-                    potion.removeAttributesModifiersFromEntity(playerIn, playerIn.getAttributeMap(), 7);
-                    if  (worldIn.isRemote) {
-                        PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
-                        PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), false));
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }).start();
-            worldIn.playSound(playerIn, playerIn.getPosition(), PatriotSoundHandler.explosion, SoundCategory.MUSIC, 1, 1);
+            castExplosion(world, player, systemTime);
         } else {
-            if (worldIn.isRemote) {
+            if (world.isRemote) {
                 //playerIn.sendMessage(new TextComponentTranslation(String.format("%s needs to recharge", playerIn.getHeldItemMainhand().getDisplayName())));
-                playerIn.sendMessage(new TextComponentString("You are exhausted from casting magic and need to rest..."));
+                player.sendMessage(new TextComponentString("You are exhausted from casting magic and need to rest..."));
             }
         }
 
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.onItemRightClick(world, player, hand);
     }
 
+    private void castExplosion(World world, EntityPlayer player, long systemTime) {
+        BlockPos blockPos = null;
+        float maxDistance = 50;
+        if (world.isRemote) {
+            blockPos = getCollisionBlockPos(maxDistance);
+        }
+        lastUsageTime = systemTime;
+        Potion potion = Potion.getPotionById(2);
+        if (potion!=null)
+            potion.applyAttributesModifiersToEntity(player, player.getAttributeMap(), 7);
+        final BlockPos pos = blockPos;
+        int brightness = pos!=null ? world.getLight(pos) : 0;
+        if (world.isRemote) {
+            PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), 15));
+        }
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+                if (potion!=null)
+                    potion.removeAttributesModifiersFromEntity(player, player.getAttributeMap(), 7);
+                if  (world.isRemote) {
+                    PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), brightness));
+                    PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        world.playSound(player, player.getPosition(), PatriotSoundHandler.explosion, SoundCategory.MUSIC, 1, 1);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @MethodsReturnNonnullByDefault
+    private BlockPos getCollisionBlockPos(float maxDistance) {
+        BlockPos blockPos;
+        Entity view = Minecraft.getMinecraft().getRenderViewEntity();
+        RayTraceResult res = view.rayTrace(maxDistance, 1f);
+        if (res!=null && res.typeOfHit == RayTraceResult.Type.BLOCK) {
+            blockPos = res.getBlockPos();
+            //playerIn.world.createExplosion(null, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, 5f, true);
+            //PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
+        } else {
+            Vec3d vec = Minecraft.getMinecraft().getRenderViewEntity().getLookVec().scale(50);
+            blockPos = Minecraft.getMinecraft().getRenderViewEntity().getPosition().add(vec.x, vec.y, vec.z);
+        }
+        Entity entity = getEntityHit(view, maxDistance);
+        if (entity!=null) {
+            //playerIn.sendMessage(new TextComponentString(entity.getName()));
+            BlockPos entityPos = entity.getPosition();
+            if (view.getPosition().getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ()) > view.getPosition().getDistance(entityPos.getX(), entityPos.getY(), entityPos.getZ())) {
+                blockPos = entityPos;
+            }
+        }
+        return blockPos;
+    }
+
+    @SideOnly(Side.CLIENT)
     private Entity getEntityHit(Entity player, float distance) {
         Entity closestEntity = null;
         Vec3d entityLook = player.getLookVec();

@@ -60,6 +60,7 @@ public class ModItems {
         ModelLoader.registerItemVariants(itemMeguminStaff, modelItemMeguminStaff);
         mesher.register(itemMeguminStaff, 0, modelItemMeguminStaff);
 
+
         registerArmor(itemMeguminHat,mesher);
         registerArmor(itemMeguminChest,mesher);
         registerArmor(itemMeguminSkirt,mesher);
