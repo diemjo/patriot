@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
@@ -23,8 +24,8 @@ public class ItemPatriot extends ItemSword {
     public ItemPatriot(ToolMaterial material) {
         super(material);
         setMaxStackSize(1);
-        //setCreativeTab(Patriot.PATRIOT_TAB);
         setCreativeTab(Patriot.PATRIOT_TAB);
+        setRegistryName(new ResourceLocation(Patriot.MODID, NAME));
     }
 
     @Override

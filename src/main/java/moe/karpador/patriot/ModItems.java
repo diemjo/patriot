@@ -24,8 +24,8 @@ public class ModItems {
     public static ItemPatriot itemPatriot;
     public static ItemMeguminStaff itemMeguminStaff;
 
-    public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material",Patriot.MODID +":megumin_hat",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
-    public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.MODID +":megumin_cloths",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
+    public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material",Patriot.RESOURCE_PREFIX +"megumin_hat",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
+    public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.RESOURCE_PREFIX +"megumin_cloths",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
     public static ItemMeguminCloths itemMeguminHat;
     public static ItemMeguminCloths itemMeguminChest;
     public static ItemMeguminCloths itemMeguminSkirt;
@@ -36,11 +36,9 @@ public class ModItems {
 
     public static void init() {
         itemPatriot = new ItemPatriot(Item.ToolMaterial.DIAMOND);
-        itemPatriot.setRegistryName(new ResourceLocation(Patriot.MODID, ItemPatriot.NAME));
         items.add(itemPatriot);
 
         itemMeguminStaff = new ItemMeguminStaff();
-        itemMeguminStaff.setRegistryName(new ResourceLocation(Patriot.MODID, ItemMeguminStaff.NAME));
         items.add(itemMeguminStaff);
 
         itemMeguminHat = new ItemMeguminCloths(meguminHatMaterial, 1, EntityEquipmentSlot.HEAD, "armor_megumin_hat");

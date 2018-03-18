@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -35,6 +36,7 @@ public class ItemMeguminStaff extends Item {
     public ItemMeguminStaff() {
         setMaxStackSize(1);
         setCreativeTab(Patriot.PATRIOT_TAB);
+        setRegistryName(new ResourceLocation(Patriot.MODID, NAME));
     }
 
     @Override
