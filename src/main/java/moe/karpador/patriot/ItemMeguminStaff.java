@@ -1,11 +1,8 @@
 package moe.karpador.patriot;
 
-import com.sun.istack.internal.NotNull;
 import mcp.MethodsReturnNonnullByDefault;
 import moe.karpador.patriot.network.ExplosionMessage;
-import moe.karpador.patriot.network.LightMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,7 +21,6 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.Sys;
 
 import java.util.List;
 
@@ -65,18 +61,20 @@ public class ItemMeguminStaff extends Item {
 
     private void castExplosion(World world, EntityPlayer player, long systemTime) {
         BlockPos blockPos = null;
+        int blockBrightness = 0;
         float maxDistance = 50;
         if (world.isRemote) {
             blockPos = getCollisionBlockPos(maxDistance);
+            blockBrightness = world.getLightFor(EnumSkyBlock.BLOCK, blockPos);
         }
         lastUsageTime = systemTime;
-        Potion potion = Potion.getPotionById(2);
+        final Potion potion = Potion.getPotionById(2);
         if (potion!=null)
             potion.applyAttributesModifiersToEntity(player, player.getAttributeMap(), 7);
         final BlockPos pos = blockPos;
-        int brightness = pos!=null ? world.getLight(pos) : 0;
+        final int brightness = blockBrightness;
         if (world.isRemote) {
-            PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), 15));
+            //PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), 15));
         }
         new Thread(() -> {
             try {
@@ -84,14 +82,15 @@ public class ItemMeguminStaff extends Item {
                 if (potion!=null)
                     potion.removeAttributesModifiersFromEntity(player, player.getAttributeMap(), 7);
                 if  (world.isRemote) {
-                    PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), brightness));
-                    PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
+                    //PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), brightness));
+                    int strength = getExplosionStrength(player);
+                    PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), strength));
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }).start();
-        world.playSound(player, player.getPosition(), PatriotSoundHandler.explosion, SoundCategory.MUSIC, 1, 1);
+        world.playSound(player, player.getPosition(), PatriotSoundHandler.explosion, SoundCategory.PLAYERS, 1, 1);
     }
 
     @SideOnly(Side.CLIENT)
@@ -102,15 +101,12 @@ public class ItemMeguminStaff extends Item {
         RayTraceResult res = view.rayTrace(maxDistance, 1f);
         if (res!=null && res.typeOfHit == RayTraceResult.Type.BLOCK) {
             blockPos = res.getBlockPos();
-            //playerIn.world.createExplosion(null, pos.getX()+0.5f, pos.getY()+0.5f, pos.getZ()+0.5f, 5f, true);
-            //PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), 4));
         } else {
-            Vec3d vec = Minecraft.getMinecraft().getRenderViewEntity().getLookVec().scale(50);
-            blockPos = Minecraft.getMinecraft().getRenderViewEntity().getPosition().add(vec.x, vec.y, vec.z);
+            Vec3d vec = view.getLookVec().scale(50);
+            blockPos = view.getPosition().add(vec.x, vec.y, vec.z);
         }
         Entity entity = getEntityHit(view, maxDistance);
         if (entity!=null) {
-            //playerIn.sendMessage(new TextComponentString(entity.getName()));
             BlockPos entityPos = entity.getPosition();
             if (view.getPosition().getDistance(blockPos.getX(), blockPos.getY(), blockPos.getZ()) > view.getPosition().getDistance(entityPos.getX(), entityPos.getY(), entityPos.getZ())) {
                 blockPos = entityPos;
@@ -137,7 +133,6 @@ public class ItemMeguminStaff extends Item {
         List<Entity> list = player.world.getEntitiesWithinAABBExcludingEntity(player, theViewBoundingBox);
         list.removeIf(e -> !e.canBeCollidedWith());
         for (Entity e : list) {
-            //entity.sendMessage(new TextComponentString(e.getName()));
             float bordersize = player.getCollisionBorderSize();
             AxisAlignedBB aabb = new AxisAlignedBB(
                     e.posX-e.width/2-bordersize,
@@ -148,9 +143,7 @@ public class ItemMeguminStaff extends Item {
                     e.posZ+e.width/2+bordersize);
             //aabb.expand(bordersize, bordersize, bordersize);
             RayTraceResult res = aabb.calculateIntercept(eyeVec, eyeVec.add(entityLook.scale(distance)));
-            //entity.sendMessage(new TextComponentString("raytracing from "+eyeVec+" with look "+entityLook.scale(distance)+" to "+e.getPositionVector()));
             if (res!=null) {
-                //player.sendMessage(new TextComponentString(res.toString()));
                 float d = (float) eyeVec.distanceTo(res.hitVec);
                 if (d < dist) {
                     dist = d;
@@ -159,5 +152,15 @@ public class ItemMeguminStaff extends Item {
             }
         }
         return closestEntity;
+    }
+
+    private int getExplosionStrength(EntityPlayer player) {
+        int count = 0;
+        for (ItemStack item : player.getArmorInventoryList()) {
+            if (item.getItem() instanceof ItemMeguminCloths) {
+                count++;
+            }
+        }
+        return 1+2*count;
     }
 }

@@ -9,8 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-
 import static net.minecraft.inventory.EntityEquipmentSlot.HEAD;
 
 public class ItemMeguminCloths extends ItemArmor {
