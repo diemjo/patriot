@@ -1,6 +1,6 @@
 {
 	"explosion" : {
-		"category": "music",
+		"category": "player",
 		"sounds": ["patriot:explosion"],
 		"subtitle": "patriot.subtitle.explosion"
 	}
