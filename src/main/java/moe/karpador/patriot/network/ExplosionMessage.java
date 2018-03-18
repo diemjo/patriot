@@ -9,6 +9,8 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ExplosionMessage implements IMessage {
 
@@ -41,24 +43,34 @@ public class ExplosionMessage implements IMessage {
 
     public static class ExplosionMessageHandler implements IMessageHandler<ExplosionMessage, ExplosionMessage> {
         @Override
-        public ExplosionMessage onMessage(ExplosionMessage message, MessageContext messageContext) {
-            BlockPos pos = new BlockPos(message.x, message.y, message.z);
+        public ExplosionMessage onMessage(ExplosionMessage message, MessageContext context) {
 
-            if (messageContext.side.isServer()) {
-                WorldServer world = messageContext.getServerHandler().player.getServerWorld();
-
-                world.addScheduledTask(() -> {
-                    world.createExplosion(null, message.x, message.y, message.z, message.s, true);
-                    world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), true));
-                });
-                PatriotPacketHandler.wrapper.sendToAll(message);
+            if (context.side.isServer()) {
+                handleMessageOnServer(message, context);
             } else {
-                Minecraft.getMinecraft().addScheduledTask(() -> {
-                    World world = Minecraft.getMinecraft().world;
-                    world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), true));
-                });
+                handleMessageOnClient(message, context);
             }
             return null;
+        }
+
+        @SideOnly(Side.SERVER)
+        private void handleMessageOnServer(ExplosionMessage message, MessageContext context) {
+            WorldServer world = context.getServerHandler().player.getServerWorld();
+            BlockPos pos = new BlockPos(message.x, message.y, message.z);
+            world.addScheduledTask(() -> {
+                world.createExplosion(null, message.x, message.y, message.z, message.s, true);
+                world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), true));
+            });
+            PatriotPacketHandler.wrapper.sendToAll(message);
+        }
+
+        @SideOnly(Side.CLIENT)
+        private void handleMessageOnClient(ExplosionMessage message, MessageContext context) {
+            BlockPos pos = new BlockPos(message.x, message.y, message.z);
+            Minecraft.getMinecraft().addScheduledTask(() -> {
+                World world = Minecraft.getMinecraft().world;
+                world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), true));
+            });
         }
     }
 }
