@@ -1,7 +1,10 @@
-package moe.karpador.patriot;
+package moe.karpador.patriot.items;
 
 import mcp.MethodsReturnNonnullByDefault;
+import moe.karpador.patriot.Patriot;
+import moe.karpador.patriot.PatriotSoundHandler;
 import moe.karpador.patriot.network.ExplosionMessage;
+import moe.karpador.patriot.network.LightMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -74,7 +77,7 @@ public class ItemMeguminStaff extends Item {
         final BlockPos pos = blockPos;
         final int brightness = blockBrightness;
         if (world.isRemote) {
-            //PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), 15));
+            PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), 15));
         }
         new Thread(() -> {
             try {
@@ -82,7 +85,7 @@ public class ItemMeguminStaff extends Item {
                 if (potion!=null)
                     potion.removeAttributesModifiersFromEntity(player, player.getAttributeMap(), 7);
                 if  (world.isRemote) {
-                    //PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), brightness));
+                    PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), brightness));
                     int strength = getExplosionStrength(player);
                     PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), strength));
                 }

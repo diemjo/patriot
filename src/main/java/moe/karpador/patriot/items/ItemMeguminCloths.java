@@ -1,5 +1,7 @@
-package moe.karpador.patriot;
+package moe.karpador.patriot.items;
 
+import moe.karpador.patriot.ModItems;
+import moe.karpador.patriot.Patriot;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -23,6 +25,11 @@ public class ItemMeguminCloths extends ItemArmor {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
+        return "item." + Patriot.RESOURCE_PREFIX + name; //item.patriot:armor_megumin_hat
+    }
+
+    @Override
+    public String getUnlocalizedName() {
         return "item." + Patriot.RESOURCE_PREFIX + name; //item.patriot:armor_megumin_hat
     }
 

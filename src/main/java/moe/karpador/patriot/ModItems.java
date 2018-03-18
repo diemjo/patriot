@@ -1,5 +1,8 @@
 package moe.karpador.patriot;
 
+import moe.karpador.patriot.items.ItemMeguminCloths;
+import moe.karpador.patriot.items.ItemMeguminStaff;
+import moe.karpador.patriot.items.ItemPatriot;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.SoundEvents;

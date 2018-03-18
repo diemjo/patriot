@@ -53,8 +53,10 @@ public class ExplosionMessage implements IMessage {
                 });
                 PatriotPacketHandler.wrapper.sendToAll(message);
             } else {
-                World world = Minecraft.getMinecraft().world;
-                world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), true));
+                Minecraft.getMinecraft().addScheduledTask(() -> {
+                    World world = Minecraft.getMinecraft().world;
+                    world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), true));
+                });
             }
             return null;
         }
