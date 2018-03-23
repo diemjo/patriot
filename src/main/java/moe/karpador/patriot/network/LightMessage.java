@@ -62,7 +62,6 @@ public class LightMessage implements IMessage {
             return null;
         }
 
-        @SideOnly(Side.SERVER)
         private void handleMessageOnServer(LightMessage message, MessageContext context) {
             EntityPlayerMP player = context.getServerHandler().player;
             WorldServer world = player.getServerWorld();

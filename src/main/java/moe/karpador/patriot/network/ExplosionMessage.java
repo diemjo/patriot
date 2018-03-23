@@ -53,7 +53,6 @@ public class ExplosionMessage implements IMessage {
             return null;
         }
 
-        @SideOnly(Side.SERVER)
         private void handleMessageOnServer(ExplosionMessage message, MessageContext context) {
             WorldServer world = context.getServerHandler().player.getServerWorld();
             BlockPos pos = new BlockPos(message.x, message.y, message.z);
