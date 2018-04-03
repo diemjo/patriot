@@ -1,5 +1,7 @@
 package moe.karpador.patriot;
 
+import moe.karpador.patriot.capability.IMana;
+import moe.karpador.patriot.capability.ManaProvider;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -55,15 +57,12 @@ public class Patriot {
     }
 
     @SubscribeEvent
-    public static void onLivingUpdateEvent(TickEvent.PlayerTickEvent event) {
+    public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
         if (event.phase == TickEvent.Phase.START) {
-            //player.addScore(1);
-            if (player.getScore() % 100 == 0) {
-                if (player.world.isRemote) {
-                    //player.sendMessage(new TextComponentString("Score is " + player.getScore()));
-                }
-            }
+            IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
+            if(mana != null)
+                mana.increaseMana();
         }
     }
 

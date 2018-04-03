@@ -2,6 +2,8 @@ package moe.karpador.patriot.items;
 
 import com.google.common.collect.Multimap;
 import moe.karpador.patriot.Patriot;
+import moe.karpador.patriot.capability.IMana;
+import moe.karpador.patriot.capability.ManaProvider;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
@@ -37,7 +39,9 @@ public class ItemPatriot extends ItemSword {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         long systemTime = System.currentTimeMillis();
         if (systemTime-lastUsageTime>200 && !worldIn.isRemote) {
-            playerIn.sendMessage(new TextComponentString("Patriot best girl!"));
+            IMana mana = playerIn.getCapability(ManaProvider.MANA_CAP,null);
+            int manaCount = mana==null? -1 : mana.getMana();
+            playerIn.sendMessage(new TextComponentString("Patriot best girl! Mana: "+ manaCount));
             //Multimap map = playerIn.getHeldItemMainhand().getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
             //playerIn.sendMessage(new TextComponentString(map.toString()));
             lastUsageTime = systemTime;
