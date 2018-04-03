@@ -29,8 +29,8 @@ public class ModItems {
     public static ItemMagicCloth itemMagicCloth;
     public static ItemMeguminStaffCore itemMeguminStaffCore;
 
-    public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material",Patriot.RESOURCE_PREFIX +"megumin_hat",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
-    public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.RESOURCE_PREFIX +"megumin_cloths",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
+    public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material",Patriot.RESOURCE_PREFIX +"megumin_hat",4,new int[] {-1,-1,-1,-1}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
+    public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.RESOURCE_PREFIX +"megumin_cloths",4,new int[] {-1,-1,-1,-1}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
     public static ItemMeguminCloths itemMeguminHat;
     public static ItemMeguminCloths itemMeguminChest;
     public static ItemMeguminCloths itemMeguminSkirt;
@@ -43,7 +43,6 @@ public class ModItems {
     public static void init() {
         itemPatriot = new ItemPatriot(Item.ToolMaterial.DIAMOND);
         items.add(itemPatriot);
-
         itemMeguminStaff = new ItemMeguminStaff();
         items.add(itemMeguminStaff);
 
