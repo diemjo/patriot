@@ -1,9 +1,13 @@
 package moe.karpador.patriot;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -11,6 +15,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Patriot.MODID, name = Patriot.NAME, version = Patriot.VERSION)
@@ -37,7 +42,6 @@ public class Patriot {
         // some example code
         // logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         proxy.init(event);
-
     }
 
     @EventHandler
@@ -48,6 +52,19 @@ public class Patriot {
     @SubscribeEvent
     public static void registerItems(final RegistryEvent.Register<Item> event) {
         ModItems.registerItems(event);
+    }
+
+    @SubscribeEvent
+    public static void onLivingUpdateEvent(TickEvent.PlayerTickEvent event) {
+        EntityPlayer player = event.player;
+        if (event.phase == TickEvent.Phase.START) {
+            //player.addScore(1);
+            if (player.getScore() % 100 == 0) {
+                if (player.world.isRemote) {
+                    //player.sendMessage(new TextComponentString("Score is " + player.getScore()));
+                }
+            }
+        }
     }
 
     public static final CreativeTabs PATRIOT_TAB = new CreativeTabs(Patriot.MODID) {
