@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "patriot",
+  "pattern": [
+    " r ",
+    "rdr",
+    " r "
+  ],
+  "key": {
+    "d": {
+      "item": "minecraft:diamond_block"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "patriot:item_megumin_staff_core"
+  }
+}
