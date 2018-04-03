@@ -1,6 +1,10 @@
 item.patriot:item_patriot.name=The One And Only Patriot
 item.patriot:item_megumin_staff.name=Black Staff of Explosion
+<<<<<<< HEAD
 item.patriot:item_magic_cloth.name=Magic Cloth
+=======
+item.patriot:item_megumin_staff_core.name=Magical Core of Explosion
+>>>>>>> bba911b4fdca100e26ecd1b9c6f20c385807f66e
 item.patriot:armor_megumin_hat.name=Megumin Hat
 item.patriot:armor_megumin_chest.name=Megumin Chest
 item.patriot:armor_megumin_skirt.name=Megumin Skirt

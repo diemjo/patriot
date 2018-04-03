@@ -3,6 +3,7 @@ package moe.karpador.patriot;
 import moe.karpador.patriot.items.ItemMagicCloth;
 import moe.karpador.patriot.items.ItemMeguminCloths;
 import moe.karpador.patriot.items.ItemMeguminStaff;
+import moe.karpador.patriot.items.ItemMeguminStaffCore;
 import moe.karpador.patriot.items.ItemPatriot;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -16,6 +17,7 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ public class ModItems {
     public static ItemPatriot itemPatriot;
     public static ItemMeguminStaff itemMeguminStaff;
     public static ItemMagicCloth itemMagicCloth;
+    public static ItemMeguminStaffCore itemMeguminStaffCore;
 
     public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material",Patriot.RESOURCE_PREFIX +"megumin_hat",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
     public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.RESOURCE_PREFIX +"megumin_cloths",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
@@ -46,6 +49,9 @@ public class ModItems {
 
         itemMagicCloth = new ItemMagicCloth();
         items.add(itemMagicCloth);
+
+        itemMeguminStaffCore = new ItemMeguminStaffCore();
+        items.add(itemMeguminStaffCore);
 
         itemMeguminHat = new ItemMeguminCloths(meguminHatMaterial, 1, EntityEquipmentSlot.HEAD, "armor_megumin_hat");
         itemMeguminChest = new ItemMeguminCloths(meguminClothsMaterial, 1, EntityEquipmentSlot.CHEST, "armor_megumin_chest");
@@ -71,6 +77,11 @@ public class ModItems {
         ModelLoader.registerItemVariants(itemMagicCloth, modelItemMagicCloth);
         mesher.register(itemMagicCloth, 0, modelItemMagicCloth);
 
+        ModelResourceLocation modelItemMeguminStaffCore = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemMeguminStaffCore.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemMeguminStaffCore, modelItemMeguminStaffCore);
+        mesher.register(itemMeguminStaffCore, 0, modelItemMeguminStaffCore);
+
+
         registerArmor(itemMeguminHat,mesher);
         registerArmor(itemMeguminChest,mesher);
         registerArmor(itemMeguminSkirt,mesher);
@@ -85,7 +96,8 @@ public class ModItems {
     }
 
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        items.forEach(item -> event.getRegistry().register(item));
+        IForgeRegistry registry = event.getRegistry();
+        items.forEach(registry::register);
     }
 
 }

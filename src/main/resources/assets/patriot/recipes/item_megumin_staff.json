@@ -2,17 +2,40 @@
   "type": "minecraft:crafting_shaped",
   "group": "patriot",
   "pattern": [
-    "p p",
-    " s ",
-    " s "
+    "ww ",
+    "cw ",
+    "  w"
   ],
   "key": {
-    "p": {
-      "item": "minecraft:paper"
+    "c": {
+      "item": "patriot:item_megumin_staff_core"
     },
-    "s": {
-      "item": "minecraft:stick"
-    }
+    "w": [
+      {
+        "item": "minecraft:log",
+        "data": 0
+      },
+      {
+        "item": "minecraft:log",
+        "data": 1
+      },
+      {
+        "item": "minecraft:log",
+        "data": 2
+      },
+      {
+        "item": "minecraft:log",
+        "data": 3
+      },
+      {
+        "item": "minecraft:log2",
+        "data": 0
+      },
+      {
+        "item": "minecraft:log2",
+        "data": 1
+      }
+    ]
   },
   "result": {
     "item": "patriot:item_megumin_staff"
