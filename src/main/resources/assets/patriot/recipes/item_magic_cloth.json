@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "patriot",
+  "pattern": [
+    "rsr",
+    "ygy",
+    "bsb"
+  ],
+  "key": {
+    "s": {
+      "item": "minecraft:string"
+    },
+    "r": {
+      "item": "minecraft:wool",
+      "data": 14
+    },
+    "y": {
+      "item": "minecraft:wool",
+      "data": 4
+    },
+    "b": {
+      "item": "minecraft:wool",
+      "data": 12
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "patriot:item_magic_cloth"
+  }
+}

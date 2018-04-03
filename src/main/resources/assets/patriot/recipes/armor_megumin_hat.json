@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "patriot",
+  "pattern": [
+    "mmm",
+    "m m"
+  ],
+  "key": {
+    "m": {
+      "item": "patriot:item_magic_cloth"
+    }
+  },
+  "result": {
+    "item": "patriot:armor_megumin_hat"
+  }
+}

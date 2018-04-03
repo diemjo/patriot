@@ -1,5 +1,6 @@
 package moe.karpador.patriot;
 
+import moe.karpador.patriot.items.ItemMagicCloth;
 import moe.karpador.patriot.items.ItemMeguminCloths;
 import moe.karpador.patriot.items.ItemMeguminStaff;
 import moe.karpador.patriot.items.ItemPatriot;
@@ -23,6 +24,7 @@ public class ModItems {
 
     public static ItemPatriot itemPatriot;
     public static ItemMeguminStaff itemMeguminStaff;
+    public static ItemMagicCloth itemMagicCloth;
 
     public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material",Patriot.RESOURCE_PREFIX +"megumin_hat",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
     public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.RESOURCE_PREFIX +"megumin_cloths",4,new int[] {2,6,5,2}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
@@ -32,6 +34,7 @@ public class ModItems {
     public static ItemMeguminCloths itemMeguminShoes;
     public static MeguminHatModel meguminHatModel;
 
+
     private static List<Item> items = new ArrayList<>();
 
     public static void init() {
@@ -40,6 +43,9 @@ public class ModItems {
 
         itemMeguminStaff = new ItemMeguminStaff();
         items.add(itemMeguminStaff);
+
+        itemMagicCloth = new ItemMagicCloth();
+        items.add(itemMagicCloth);
 
         itemMeguminHat = new ItemMeguminCloths(meguminHatMaterial, 1, EntityEquipmentSlot.HEAD, "armor_megumin_hat");
         itemMeguminChest = new ItemMeguminCloths(meguminClothsMaterial, 1, EntityEquipmentSlot.CHEST, "armor_megumin_chest");
@@ -61,6 +67,9 @@ public class ModItems {
         ModelLoader.registerItemVariants(itemMeguminStaff, modelItemMeguminStaff);
         mesher.register(itemMeguminStaff, 0, modelItemMeguminStaff);
 
+        ModelResourceLocation modelItemMagicCloth = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemMagicCloth.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemMagicCloth, modelItemMagicCloth);
+        mesher.register(itemMagicCloth, 0, modelItemMagicCloth);
 
         registerArmor(itemMeguminHat,mesher);
         registerArmor(itemMeguminChest,mesher);
