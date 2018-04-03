@@ -67,6 +67,10 @@ public class ModItems {
         ModelLoader.registerItemVariants(itemMeguminStaff, modelItemMeguminStaff);
         mesher.register(itemMeguminStaff, 0, modelItemMeguminStaff);
 
+        ModelResourceLocation modelItemMeguminStaffCore = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemMeguminStaffCore.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemMeguminStaffCore, modelItemMeguminStaffCore);
+        mesher.register(itemMeguminStaffCore, 0, modelItemMeguminStaffCore);
+
 
         registerArmor(itemMeguminHat,mesher);
         registerArmor(itemMeguminChest,mesher);
@@ -83,7 +87,7 @@ public class ModItems {
 
     public static void registerItems(RegistryEvent.Register<Item> event) {
         IForgeRegistry registry = event.getRegistry();
-        items.forEach(item -> registry.register(item));
+        items.forEach(registry::register);
     }
 
 }

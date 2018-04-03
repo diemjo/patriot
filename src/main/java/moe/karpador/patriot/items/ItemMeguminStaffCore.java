@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public class ItemMeguminStaffCore extends Item {
-    static final String NAME = "item_megumin_staff_core";
+    public static final String NAME = "item_megumin_staff_core";
 
     public ItemMeguminStaffCore() {
         setMaxStackSize(1);

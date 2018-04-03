@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "group": "patriot",
   "pattern": [
-    "p  ",
-    " s ",
-    "  s"
+    "ww ",
+    "cw ",
+    "  w"
   ],
   "key": {
-    "p": {
+    "c": {
       "item": "patriot:item_megumin_staff_core"
     },
-    "s": [
+    "w": [
       {
         "item": "minecraft:log",
         "data": 0
