@@ -3,6 +3,8 @@ package moe.karpador.patriot.items;
 import mcp.MethodsReturnNonnullByDefault;
 import moe.karpador.patriot.Patriot;
 import moe.karpador.patriot.PatriotSoundHandler;
+import moe.karpador.patriot.capability.IMana;
+import moe.karpador.patriot.capability.ManaProvider;
 import moe.karpador.patriot.network.ExplosionMessage;
 import moe.karpador.patriot.network.LightMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
@@ -52,8 +54,10 @@ public class ItemMeguminStaff extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         long systemTime = System.currentTimeMillis();
-        if (systemTime-lastUsageTime>3000) {
+        IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
+        if (mana.enoughMana()) {
             castExplosion(world, player, systemTime);
+            mana.useMana();
         } else {
             if (world.isRemote) {
                 //playerIn.sendMessage(new TextComponentTranslation(String.format("%s needs to recharge", playerIn.getHeldItemMainhand().getDisplayName())));
