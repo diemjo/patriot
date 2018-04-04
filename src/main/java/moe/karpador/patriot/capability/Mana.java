@@ -15,7 +15,7 @@ public class Mana implements IMana {
     }
     @Override
     public void increaseMana() {
-        mana=mana<maxMana? mana+1 : maxMana;
+        mana = Math.min(mana+1, maxMana);
     }
 
     @Override
@@ -25,12 +25,7 @@ public class Mana implements IMana {
 
     @Override
     public void setMana(int value) {
-        if(value<0)
-            mana=0;
-        else if(value>maxMana)
-            mana=maxMana;
-        else
-            mana = value;
+        mana = Math.max(0, Math.min(value, maxMana));
     }
 }
 
