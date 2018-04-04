@@ -17,7 +17,7 @@ public class CommonProxy {
         ModItems.init();
         PatriotSoundHandler.init();
         PatriotPacketHandler.setWrapper();
-        MinecraftForge.EVENT_BUS.register(CapabilityHandler.class);
+        MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
 
     }
 
@@ -26,7 +26,7 @@ public class CommonProxy {
 
     }
 
-    public void postEvent(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
 
     }
 

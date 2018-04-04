@@ -24,7 +24,7 @@ public class ManaProvider implements ICapabilitySerializable<NBTBase> {
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing enumFacing) {
-        return capability == MANA_CAP ? MANA_CAP.<T> cast(this.instance) : null;
+        return capability == MANA_CAP ? MANA_CAP.cast(this.instance) : null;
     }
 
     @Override

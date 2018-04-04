@@ -8,7 +8,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class CapabilityHandler {
-    public static final ResourceLocation MANA_CAP = new ResourceLocation(Patriot.MODID, "Mana");
+    public static final ResourceLocation MANA_CAP = new ResourceLocation(Patriot.MODID, "mana");
 
     @SubscribeEvent
     public void attachCapability(AttachCapabilitiesEvent<Entity> event)
