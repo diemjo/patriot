@@ -5,5 +5,6 @@ public interface IMana {
     public void useMana();
     public void increaseMana();
     public int getMana();
+    public int getMaxMana();
     public void setMana(int value);
 }

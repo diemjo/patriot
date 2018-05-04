@@ -24,6 +24,11 @@ public class Mana implements IMana {
     }
 
     @Override
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    @Override
     public void setMana(int value) {
         mana = Math.max(0, Math.min(value, maxMana));
     }
