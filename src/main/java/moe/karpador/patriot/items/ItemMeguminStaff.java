@@ -54,6 +54,10 @@ public class ItemMeguminStaff extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         long systemTime = System.currentTimeMillis();
+        if (lastUsageTime + 200 < systemTime)
+            return super.onItemRightClick(world, player, hand);
+        lastUsageTime = systemTime;
+        
         IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
         if (mana.enoughMana()) {
             castExplosion(world, player, systemTime);

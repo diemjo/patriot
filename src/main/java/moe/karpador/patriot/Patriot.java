@@ -58,8 +58,12 @@ public class Patriot {
         EntityPlayer player = event.player;
         if (event.phase == TickEvent.Phase.START) {
             IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
-            if(mana != null)
-                mana.increaseMana();
+            if(mana != null) {
+                if (player.isPlayerSleeping())
+                    mana.increaseMana(10);
+                else
+                    mana.increaseMana(1);
+            }
         }
     }
 

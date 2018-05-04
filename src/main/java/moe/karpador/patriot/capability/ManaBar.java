@@ -1,10 +1,14 @@
 package moe.karpador.patriot.capability;
 
 import moe.karpador.patriot.Patriot;
+import moe.karpador.patriot.items.ItemMeguminStaff;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -30,6 +34,12 @@ public class ManaBar extends Gui
             return;
         }
 
+        ItemStack mainhandItem = mc.player.getHeldItem(EnumHand.MAIN_HAND);
+        ItemStack offhandItem = mc.player.getHeldItem(EnumHand.OFF_HAND);
+
+        if (!(mainhandItem.getItem() instanceof ItemMeguminStaff) && !(offhandItem.getItem() instanceof ItemMeguminStaff))
+            return;
+
         IMana mana = mc.player.getCapability(ManaProvider.MANA_CAP, null);
         if (mana == null) {
             return;
@@ -39,7 +49,7 @@ public class ManaBar extends Gui
 
         int xPos = sr.getScaledWidth()/2 + 10;
         int yPos = sr.getScaledHeight() - 49;
-        this.mc.getTextureManager().bindTexture(texture);
+        mc.getTextureManager().bindTexture(texture);
 
         // Add this block of code before you draw the section of your texture containing transparency
         GlStateManager.pushAttrib();
@@ -54,7 +64,10 @@ public class ManaBar extends Gui
 
         // You can keep drawing without changing anything
         int manabarwidth = (int)(((float) mana.getMana() / mana.getMaxMana()) * 74);
-        drawTexturedModalRect(xPos + 3, yPos + 3, 0, 9, manabarwidth, 3);
+        if (mana.enoughMana())
+            drawTexturedModalRect(xPos + 3, yPos + 3, 0, 12, manabarwidth, 3);
+        else
+            drawTexturedModalRect(xPos + 3, yPos + 3, 0, 9, manabarwidth, 3);
         String s = "Mana " + mana.getMana() + "/" + mana.getMaxMana();
         yPos += 10;
         /*this.mc.fontRenderer.drawString(s, xPos + 1, yPos, 0);

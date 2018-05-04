@@ -1,7 +1,8 @@
 package moe.karpador.patriot.capability;
 
 public class Mana implements IMana {
-    final public int maxMana = 200;
+    //3 minutes cooldown
+    final public int maxMana = 20*60*3;
     public int mana = maxMana;
 
     @Override
@@ -14,8 +15,8 @@ public class Mana implements IMana {
         mana=0;
     }
     @Override
-    public void increaseMana() {
-        mana = Math.min(mana+1, maxMana);
+    public void increaseMana(int amount) {
+        mana = Math.min(mana+amount, maxMana);
     }
 
     @Override
