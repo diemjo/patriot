@@ -1,4 +1,4 @@
-package moe.karpador.patriot.capability;
+package moe.karpador.patriot.mana;
 
 import moe.karpador.patriot.Patriot;
 import net.minecraft.entity.Entity;

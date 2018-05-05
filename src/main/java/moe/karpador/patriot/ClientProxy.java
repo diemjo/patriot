@@ -1,6 +1,6 @@
 package moe.karpador.patriot;
 
-import moe.karpador.patriot.capability.ManaBar;
+import moe.karpador.patriot.mana.ManaBar;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

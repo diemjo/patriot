@@ -1,7 +1,7 @@
 package moe.karpador.patriot;
 
-import moe.karpador.patriot.capability.IMana;
-import moe.karpador.patriot.capability.ManaProvider;
+import moe.karpador.patriot.mana.IMana;
+import moe.karpador.patriot.mana.ManaProvider;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

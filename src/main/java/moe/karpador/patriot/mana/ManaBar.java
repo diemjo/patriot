@@ -1,4 +1,4 @@
-package moe.karpador.patriot.capability;
+package moe.karpador.patriot.mana;
 
 import moe.karpador.patriot.Patriot;
 import moe.karpador.patriot.items.ItemMeguminStaff;
@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;

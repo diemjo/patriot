@@ -2,8 +2,8 @@ package moe.karpador.patriot.items;
 
 import com.google.common.collect.Multimap;
 import moe.karpador.patriot.Patriot;
-import moe.karpador.patriot.capability.IMana;
-import moe.karpador.patriot.capability.ManaProvider;
+import moe.karpador.patriot.mana.IMana;
+import moe.karpador.patriot.mana.ManaProvider;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;

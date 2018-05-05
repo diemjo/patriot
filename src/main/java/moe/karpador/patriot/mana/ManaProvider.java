@@ -1,4 +1,4 @@
-package moe.karpador.patriot.capability;
+package moe.karpador.patriot.mana;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;

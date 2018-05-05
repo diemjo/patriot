@@ -1,4 +1,4 @@
-package moe.karpador.patriot.capability;
+package moe.karpador.patriot.mana;
 
 public interface IMana {
     public boolean enoughMana();

@@ -1,9 +1,9 @@
 package moe.karpador.patriot;
 
-import moe.karpador.patriot.capability.CapabilityHandler;
-import moe.karpador.patriot.capability.IMana;
-import moe.karpador.patriot.capability.Mana;
-import moe.karpador.patriot.capability.ManaStorage;
+import moe.karpador.patriot.mana.CapabilityHandler;
+import moe.karpador.patriot.mana.IMana;
+import moe.karpador.patriot.mana.Mana;
+import moe.karpador.patriot.mana.ManaStorage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;

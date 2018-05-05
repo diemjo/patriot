@@ -1,8 +1,10 @@
-package moe.karpador.patriot.capability;
+package moe.karpador.patriot.mana;
+
+import moe.karpador.patriot.ModConfig;
 
 public class Mana implements IMana {
     //3 minutes cooldown
-    final public int maxMana = 20*60*3;
+    public static int maxMana = 20*ModConfig.meguminStaff.cooldown;
     public int mana = maxMana;
 
     @Override
