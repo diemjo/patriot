@@ -36,6 +36,9 @@ public class ManaBar extends Gui
         ItemStack mainhandItem = mc.player.getHeldItem(EnumHand.MAIN_HAND);
         ItemStack offhandItem = mc.player.getHeldItem(EnumHand.OFF_HAND);
 
+        if (mc.player.isCreative())
+            return;
+
         if (!(mainhandItem.getItem() instanceof ItemMeguminStaff) && !(offhandItem.getItem() instanceof ItemMeguminStaff))
             return;
 

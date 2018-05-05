@@ -60,7 +60,7 @@ public class ItemMeguminStaff extends Item {
         lastUsageTime = systemTime;
 
         IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
-        if (mana.enoughMana()) {
+        if (mana.enoughMana() || player.isCreative()) {
             castExplosion(world, player, systemTime);
             mana.useMana();
         } else {
