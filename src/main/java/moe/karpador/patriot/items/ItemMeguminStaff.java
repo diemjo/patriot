@@ -61,7 +61,7 @@ public class ItemMeguminStaff extends Item {
 
         IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
         if (mana.enoughMana() || player.isCreative()) {
-            castExplosion(world, player, systemTime);
+            castExplosion(world, player);
             mana.useMana();
         } else {
             if (world.isRemote) {
@@ -73,7 +73,7 @@ public class ItemMeguminStaff extends Item {
         return super.onItemRightClick(world, player, hand);
     }
 
-    private void castExplosion(World world, EntityPlayer player, long systemTime) {
+    private void castExplosion(World world, EntityPlayer player) {
         BlockPos blockPos = null;
         int blockBrightness = 0;
         float maxDistance = 50;
@@ -81,7 +81,6 @@ public class ItemMeguminStaff extends Item {
             blockPos = getCollisionBlockPos(maxDistance);
             blockBrightness = world.getLightFor(EnumSkyBlock.BLOCK, blockPos);
         }
-        lastUsageTime = systemTime;
         final Potion potion = Potion.getPotionById(2);
         if (potion!=null)
             potion.applyAttributesModifiersToEntity(player, player.getAttributeMap(), 7);
