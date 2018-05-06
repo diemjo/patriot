@@ -1,6 +1,5 @@
 package moe.karpador.patriot.items;
 
-import moe.karpador.patriot.ModItems;
 import moe.karpador.patriot.Patriot;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;

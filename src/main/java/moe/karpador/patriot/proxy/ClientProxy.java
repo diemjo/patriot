@@ -1,5 +1,6 @@
-package moe.karpador.patriot;
+package moe.karpador.patriot.proxy;
 
+import moe.karpador.patriot.items.ModItems;
 import moe.karpador.patriot.mana.ManaBar;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;

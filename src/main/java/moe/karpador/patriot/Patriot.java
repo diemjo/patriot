@@ -1,7 +1,9 @@
 package moe.karpador.patriot;
 
+import moe.karpador.patriot.items.ModItems;
 import moe.karpador.patriot.mana.IMana;
 import moe.karpador.patriot.mana.ManaProvider;
+import moe.karpador.patriot.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -27,7 +29,7 @@ public class Patriot {
 
     public static Logger logger;
 
-    @SidedProxy(clientSide = "moe.karpador.patriot.ClientProxy", serverSide = "moe.karpador.patriot.CommonProxy")
+    @SidedProxy(clientSide = "moe.karpador.patriot.proxy.ClientProxy", serverSide = "moe.karpador.patriot.proxy.CommonProxy")
     public static CommonProxy proxy;
 
     @EventHandler

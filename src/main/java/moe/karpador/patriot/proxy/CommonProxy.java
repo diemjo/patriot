@@ -1,5 +1,7 @@
-package moe.karpador.patriot;
+package moe.karpador.patriot.proxy;
 
+import moe.karpador.patriot.items.ModItems;
+import moe.karpador.patriot.PatriotSoundHandler;
 import moe.karpador.patriot.mana.CapabilityHandler;
 import moe.karpador.patriot.mana.IMana;
 import moe.karpador.patriot.mana.Mana;
