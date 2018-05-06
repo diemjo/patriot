@@ -36,7 +36,7 @@ minecraft {
 }
 
 
-repositories {
+/*repositories {
     maven {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
@@ -47,7 +47,7 @@ repositories {
         name = "ModMaven"
         url = "modmaven.k-4u.nl"
     }
-}
+}*/
 
 dependencies {
     // you may put jars on which you depend on in ./libs
@@ -72,11 +72,11 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     // compile against the JEI API but do not include it at runtime
-    def mc_version="1.12.2"
-    def jei_version="4.8.5.147"
-    deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
+    //def mc_version="1.12.2"
+    //def jei_version="4.8.5.147"
+    //deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
     // at runtime, use the full JEI jar
-    runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+    //runtime "mezz.jei:jei_${mc_version}:${jei_version}"
 }
 
 processResources {
