@@ -42,8 +42,6 @@ public class ItemPatriot extends ItemSword {
             IMana mana = playerIn.getCapability(ManaProvider.MANA_CAP,null);
             int manaCount = mana==null? -1 : mana.getMana();
             playerIn.sendMessage(new TextComponentString("Patriot best girl! Mana: "+ manaCount));
-            //Multimap map = playerIn.getHeldItemMainhand().getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
-            //playerIn.sendMessage(new TextComponentString(map.toString()));
             lastUsageTime = systemTime;
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -52,7 +50,6 @@ public class ItemPatriot extends ItemSword {
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
         Multimap<String, AttributeModifier> modifiers = super.getAttributeModifiers(slot, stack);
-        //modifiers.removeAll(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
         stack.addAttributeModifier(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", ATTACK_DAMAGE, 0), EntityEquipmentSlot.MAINHAND);
         return modifiers;
     }
