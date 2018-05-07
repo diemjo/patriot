@@ -68,6 +68,7 @@ public class ExplosionMessage implements IMessage {
             BlockPos pos = new BlockPos(message.x, message.y, message.z);
             Minecraft.getMinecraft().addScheduledTask(() -> {
                 World world = Minecraft.getMinecraft().world;
+                world.createExplosion(null, message.x, message.y, message.z, message.s, true);
                 world.spawnEntity(new EntityLightningBolt(world, pos.getX(), pos.getY(), pos.getZ(), true));
             });
         }
