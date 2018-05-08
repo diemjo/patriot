@@ -14,7 +14,7 @@ Creators:
 - Tenshi79
 
 # Download
-Download this mod from [Releases](https://github.com/diemjo/releases)
+Download this mod from [Releases](https://github.com/diemjo/patriot/releases)
 
 # Installation
 - if you don't have forge installed already, download and install forge from http://files.minecraftforge.net/
