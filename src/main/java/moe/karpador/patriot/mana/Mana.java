@@ -6,6 +6,10 @@ public class Mana implements IMana {
     //3 minutes cooldown
     public static int maxMana = 20*ModConfig.meguminStaff.cooldown;
     public int mana = maxMana;
+    //5 minutes cooldown
+    private final int pantsuCooldown = 20*300;
+    private int pantsuCooldownCounter = 0;
+    private boolean hasPantsu = true;
 
     @Override
     public boolean enoughMana() {
@@ -34,6 +38,27 @@ public class Mana implements IMana {
     @Override
     public void setMana(int value) {
         mana = Math.max(0, Math.min(value, maxMana));
+    }
+
+    @Override
+    public boolean hasPantsu() {
+        return hasPantsu;
+    }
+
+    @Override
+    public void setPantsu(boolean value) {
+        hasPantsu = value;
+        pantsuCooldownCounter = 0;
+    }
+
+    @Override
+    public void pantsuTick() {
+        if(!hasPantsu) {
+            pantsuCooldownCounter++;
+            if(pantsuCooldownCounter >= pantsuCooldown) {
+                hasPantsu = true;
+            }
+        }
     }
 }
 

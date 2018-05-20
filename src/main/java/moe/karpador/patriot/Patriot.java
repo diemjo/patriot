@@ -65,6 +65,7 @@ public class Patriot {
                     mana.increaseMana(10);
                 else
                     mana.increaseMana(1);
+                mana.pantsuTick();
             }
         }
     }
