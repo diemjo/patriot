@@ -58,7 +58,7 @@ public class ModItems {
         items.add(itemMeguminSkirt);
         items.add(itemMeguminShoes);
 
-        itemPantsu = new ItemPantsu();
+        itemPantsu = new ItemPantsu(0, 0, false);
         items.add(itemPantsu);
 
         itemStealMagic = new ItemStealMagic();
