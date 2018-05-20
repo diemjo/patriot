@@ -32,6 +32,7 @@ public class ModItems {
     public static ItemMeguminCloths itemMeguminShoes;
     public static MeguminHatModel meguminHatModel;
     public static ItemGenericPantsu itemGenericPantsu;
+    public static ItemMeguminPantsu itemMeguminPantsu;
     public static ItemStealMagic itemStealMagic;
 
     private static List<Item> items = new ArrayList<>();
@@ -59,6 +60,8 @@ public class ModItems {
 
         itemGenericPantsu = new ItemGenericPantsu(0, 0, false);
         items.add(itemGenericPantsu);
+        itemMeguminPantsu = new ItemMeguminPantsu(0,0,false);
+        items.add(itemMeguminPantsu);
 
         itemStealMagic = new ItemStealMagic();
         items.add(itemStealMagic);
@@ -89,13 +92,15 @@ public class ModItems {
         registerArmor(itemMeguminShoes,mesher);
         meguminHatModel = new MeguminHatModel();
 
-        ModelResourceLocation modelItemPantsu = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, itemGenericPantsu.NAME), "inventory");
-        ModelLoader.registerItemVariants(itemGenericPantsu, modelItemPantsu);
-        mesher.register(itemGenericPantsu, 0, modelItemPantsu);
+        initItemClient(itemGenericPantsu, itemGenericPantsu.NAME, mesher);
+        initItemClient(itemStealMagic, itemStealMagic.NAME, mesher);
+        initItemClient(itemMeguminPantsu, itemMeguminPantsu.NAME, mesher);
+    }
 
-        ModelResourceLocation modelItemStealMagic = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemStealMagic.NAME), "inventory");
-        ModelLoader.registerItemVariants(itemStealMagic, modelItemStealMagic);
-        mesher.register(itemStealMagic, 0, modelItemStealMagic);
+    private static void initItemClient(Item item, String itemName, ItemModelMesher mesher) {
+        ModelResourceLocation modelItem = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, itemName), "inventory");
+        ModelLoader.registerItemVariants(item, modelItem);
+        mesher.register(itemStealMagic, 0, modelItem);
     }
 
     private static void registerArmor(ItemMeguminCloths item, ItemModelMesher mesher) {

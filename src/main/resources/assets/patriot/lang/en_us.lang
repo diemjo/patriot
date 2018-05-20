@@ -7,6 +7,7 @@ item.patriot:armor_megumin_chest.name=Megumin Chest
 item.patriot:armor_megumin_skirt.name=Megumin Skirt
 item.patriot:armor_megumin_shoes.name=Megumin Shoes
 item.patriot:item_generic_pantsu.name=Pantsu
+item.patriot:item_megumin_pantsu.name=Megumin Pantsu
 item.patriot:item_steal_magic.name=Steal Magic
 
 itemGroup.patriot=Patriot

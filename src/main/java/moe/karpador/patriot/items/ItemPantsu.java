@@ -21,11 +21,11 @@ public abstract class ItemPantsu extends ItemFood {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return String.format("item.%s%s", Patriot.RESOURCE_PREFIX, NAME); //item.patriot:item_pantsu
+        return String.format("item.%s%s", Patriot.RESOURCE_PREFIX, NAME); //item.patriot:NAME
     }
 
     @Override
     public String getUnlocalizedName() {
-        return String.format("item.%s%s", Patriot.RESOURCE_PREFIX, NAME); //item.patriot:item_pantsu
+        return String.format("item.%s%s", Patriot.RESOURCE_PREFIX, NAME); //item.patriot:NAME
     }
 }
