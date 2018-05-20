@@ -1,7 +1,6 @@
 package moe.karpador.patriot.items;
 
 import moe.karpador.patriot.Patriot;
-import moe.karpador.patriot.items.*;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.SoundEvents;
@@ -32,7 +31,7 @@ public class ModItems {
     public static ItemMeguminCloths itemMeguminSkirt;
     public static ItemMeguminCloths itemMeguminShoes;
     public static MeguminHatModel meguminHatModel;
-    public static ItemPantsu itemPantsu;
+    public static ItemGenericPantsu itemGenericPantsu;
     public static ItemStealMagic itemStealMagic;
 
     private static List<Item> items = new ArrayList<>();
@@ -58,8 +57,8 @@ public class ModItems {
         items.add(itemMeguminSkirt);
         items.add(itemMeguminShoes);
 
-        itemPantsu = new ItemPantsu(0, 0, false);
-        items.add(itemPantsu);
+        itemGenericPantsu = new ItemGenericPantsu(0, 0, false);
+        items.add(itemGenericPantsu);
 
         itemStealMagic = new ItemStealMagic();
         items.add(itemStealMagic);
@@ -90,9 +89,9 @@ public class ModItems {
         registerArmor(itemMeguminShoes,mesher);
         meguminHatModel = new MeguminHatModel();
 
-        ModelResourceLocation modelItemPantsu = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemPantsu.NAME), "inventory");
-        ModelLoader.registerItemVariants(itemPantsu, modelItemPantsu);
-        mesher.register(itemPantsu, 0, modelItemPantsu);
+        ModelResourceLocation modelItemPantsu = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, itemGenericPantsu.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemGenericPantsu, modelItemPantsu);
+        mesher.register(itemGenericPantsu, 0, modelItemPantsu);
 
         ModelResourceLocation modelItemStealMagic = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemStealMagic.NAME), "inventory");
         ModelLoader.registerItemVariants(itemStealMagic, modelItemStealMagic);
