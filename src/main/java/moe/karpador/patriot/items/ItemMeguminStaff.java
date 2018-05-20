@@ -169,10 +169,15 @@ public class ItemMeguminStaff extends Item {
 
     private int getExplosionStrength(EntityPlayer player) {
         int count = 0;
+        IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
         for (ItemStack item : player.getArmorInventoryList()) {
             if (item.getItem() instanceof ItemMeguminCloths) {
                 count++;
             }
+        }
+        if(mana.hasUltimateExplosion()) {
+            mana.setUltimateExplosion(false);
+            return (1+2*count)*2;
         }
         return 1+2*count;
     }
