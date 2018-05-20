@@ -32,7 +32,8 @@ public class ModItems {
     public static ItemMeguminCloths itemMeguminSkirt;
     public static ItemMeguminCloths itemMeguminShoes;
     public static MeguminHatModel meguminHatModel;
-
+    public static ItemPantsu itemPantsu;
+    public static ItemStealMagic itemStealMagic;
 
     private static List<Item> items = new ArrayList<>();
 
@@ -56,6 +57,12 @@ public class ModItems {
         items.add(itemMeguminChest);
         items.add(itemMeguminSkirt);
         items.add(itemMeguminShoes);
+
+        itemPantsu = new ItemPantsu();
+        items.add(itemPantsu);
+
+        itemStealMagic = new ItemStealMagic();
+        items.add(itemStealMagic);
     }
 
     @SideOnly(Side.CLIENT)
@@ -82,6 +89,14 @@ public class ModItems {
         registerArmor(itemMeguminSkirt,mesher);
         registerArmor(itemMeguminShoes,mesher);
         meguminHatModel = new MeguminHatModel();
+
+        ModelResourceLocation modelItemPantsu = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemPantsu.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemPantsu, modelItemPantsu);
+        mesher.register(itemPantsu, 0, modelItemPantsu);
+
+        ModelResourceLocation modelItemStealMagic = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemStealMagic.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemStealMagic, modelItemStealMagic);
+        mesher.register(itemStealMagic, 0, modelItemStealMagic);
     }
 
     private static void registerArmor(ItemMeguminCloths item, ItemModelMesher mesher) {
