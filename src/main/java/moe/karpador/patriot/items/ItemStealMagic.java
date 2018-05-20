@@ -37,7 +37,7 @@ public class ItemStealMagic extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         IMana playerMana = player.getCapability(ManaProvider.MANA_CAP, null);
-        if (playerMana==null || playerMana.getMana() >= playerMana.getMaxMana()/3)
+        if (playerMana==null || playerMana.getMana() < playerMana.getMaxMana()/3)
             return super.onItemRightClick(world, player, hand);
         if (world.isRemote) {
             RayTraceResult res = Minecraft.getMinecraft().objectMouseOver;
