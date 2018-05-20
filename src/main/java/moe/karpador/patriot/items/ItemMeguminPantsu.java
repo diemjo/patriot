@@ -16,7 +16,7 @@ public class ItemMeguminPantsu extends ItemPantsu {
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
         IMana mana = entityLiving.getCapability(ManaProvider.MANA_CAP, null);
         if(mana != null) {
-            mana.setMana(Mana.maxMana);
+            mana.setUltimateExplosion(true);
         }
         return super.onItemUseFinish(stack, worldIn, entityLiving);
     }

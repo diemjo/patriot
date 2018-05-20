@@ -1,15 +1,17 @@
 package moe.karpador.patriot.items;
 
 import moe.karpador.patriot.Patriot;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 public abstract class ItemPantsu extends ItemFood {
     public final String NAME;
 
     /**
-     * @param amount how much the food bar will be increased (10 means half of the bar)nn
+     * @param amount how much the food bar will be increased (10 means half of the bar)
      */
     public ItemPantsu(int amount, float saturation, boolean isWolfFood, String pantsuName) {
         super(amount, saturation, isWolfFood);

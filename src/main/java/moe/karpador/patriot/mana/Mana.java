@@ -6,6 +6,7 @@ public class Mana implements IMana {
     //3 minutes cooldown
     public static int maxMana = 20*ModConfig.meguminStaff.cooldown;
     public int mana = maxMana;
+    private boolean ultimateExplosion = false;
     //5 minutes cooldown
     private final int pantsuCooldown = 20*300;
     private int pantsuCooldownCounter = 0;
@@ -38,6 +39,16 @@ public class Mana implements IMana {
     @Override
     public void setMana(int value) {
         mana = Math.max(0, Math.min(value, maxMana));
+    }
+
+    @Override
+    public boolean hasUltimateExplosion() {
+        return ultimateExplosion;
+    }
+
+    @Override
+    public void setUltimateExplosion(boolean value) {
+        ultimateExplosion = value;
     }
 
     @Override
