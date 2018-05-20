@@ -61,10 +61,7 @@ public class Patriot {
         if (event.phase == TickEvent.Phase.START) {
             IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
             if(mana != null) {
-                if (player.isPlayerSleeping())
-                    mana.increaseMana(10);
-                else
-                    mana.increaseMana(1);
+                mana.increaseMana(1);
                 mana.pantsuTick();
             }
         }

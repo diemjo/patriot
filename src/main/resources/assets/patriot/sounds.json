@@ -3,5 +3,11 @@
 		"category": "player",
 		"sounds": ["patriot:explosion"],
 		"subtitle": "patriot.subtitle.explosion"
+	},
+
+	"kyaa" : {
+		"category": "player",
+		"sounds": ["patriot:kyaa"],
+		"subtitle": "patriot.subtitle.kyaa"
 	}
 }

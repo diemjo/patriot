@@ -1,6 +1,7 @@
 package moe.karpador.patriot.items;
 
 import moe.karpador.patriot.Patriot;
+import moe.karpador.patriot.PatriotSoundHandler;
 import moe.karpador.patriot.mana.IMana;
 import moe.karpador.patriot.mana.ManaProvider;
 import moe.karpador.patriot.network.PantsuMessage;
@@ -12,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
@@ -59,6 +61,7 @@ public class ItemStealMagic extends Item {
                     }
                     playerMana.setMana(playerMana.getMana()-playerMana.getMaxMana()/3);
                     targetMana.setPantsu(false);
+                    world.playSound((EntityPlayer) res.entityHit, res.entityHit.getPosition(), PatriotSoundHandler.kyaa, SoundCategory.PLAYERS, 1, 1);
                 }
                 else {
                     player.sendMessage(new TextComponentString("you don't want to eat "+res.entityHit.getName()+" pantsu, do you?"));
