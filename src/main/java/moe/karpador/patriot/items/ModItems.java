@@ -97,12 +97,14 @@ public class ModItems {
         initItemClient(itemMeguminPantsu, itemMeguminPantsu.NAME, mesher);
     }
 
+    @SideOnly(Side.CLIENT)
     private static void initItemClient(Item item, String itemName, ItemModelMesher mesher) {
         ModelResourceLocation modelItem = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, itemName), "inventory");
         ModelLoader.registerItemVariants(item, modelItem);
-        mesher.register(itemStealMagic, 0, modelItem);
+        mesher.register(item, 0, modelItem);
     }
 
+    @SideOnly(Side.CLIENT)
     private static void registerArmor(ItemMeguminCloths item, ItemModelMesher mesher) {
         ModelResourceLocation modelItem = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, item.name), "inventory");
         ModelLoader.registerItemVariants(item, modelItem);
