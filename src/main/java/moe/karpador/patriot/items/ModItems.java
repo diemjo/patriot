@@ -86,7 +86,7 @@ public class ModItems {
         ModelLoader.registerItemVariants(itemToiletPaper, modelItemToiletPaper);
         mesher.register(itemToiletPaper, 0, modelItemToiletPaper);
 
-        ModelResourceLocation modelItemTissueBox = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemToiletPaper.NAME), "inventory");
+        ModelResourceLocation modelItemTissueBox = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemTissueBox.NAME), "inventory");
         ModelLoader.registerItemVariants(itemTissueBox, modelItemTissueBox);
         mesher.register(itemTissueBox, 0, modelItemTissueBox);
 
