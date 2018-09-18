@@ -20,6 +20,8 @@ import java.util.List;
 public class ModItems {
 
     public static ItemPatriot itemPatriot;
+    public static ItemToiletPaper itemToiletPaper;
+    public static ItemTissueBox itemTissueBox;
     public static ItemMeguminStaff itemMeguminStaff;
     public static ItemMagicCloth itemMagicCloth;
     public static ItemMeguminStaffCore itemMeguminStaffCore;
@@ -40,6 +42,13 @@ public class ModItems {
     public static void init() {
         itemPatriot = new ItemPatriot(Item.ToolMaterial.DIAMOND);
         items.add(itemPatriot);
+
+        itemToiletPaper = new ItemToiletPaper();
+        items.add(itemToiletPaper);
+
+        itemTissueBox = new ItemTissueBox();
+        items.add(itemTissueBox);
+
         itemMeguminStaff = new ItemMeguminStaff();
         items.add(itemMeguminStaff);
 
@@ -72,6 +81,14 @@ public class ModItems {
         ModelResourceLocation modelItemPatriot = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemPatriot.NAME), "inventory");
         ModelLoader.registerItemVariants(itemPatriot, modelItemPatriot);
         mesher.register(itemPatriot, 0, modelItemPatriot);
+
+        ModelResourceLocation modelItemToiletPaper = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemToiletPaper.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemToiletPaper, modelItemToiletPaper);
+        mesher.register(itemToiletPaper, 0, modelItemToiletPaper);
+
+        ModelResourceLocation modelItemTissueBox = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemToiletPaper.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemTissueBox, modelItemTissueBox);
+        mesher.register(itemTissueBox, 0, modelItemTissueBox);
 
         ModelResourceLocation modelItemMeguminStaff = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemMeguminStaff.NAME), "inventory");
         ModelLoader.registerItemVariants(itemMeguminStaff, modelItemMeguminStaff);

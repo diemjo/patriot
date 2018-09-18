@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "patriot",
+  "pattern": [
+    "ptp",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "minecraft:paper"
+    },
+    "t": {
+      "item": "patriot:item_toilet_paper"
+    }
+  },
+  "result": {
+    "item": "patriot:item_tissue_box"
+  }
+}
