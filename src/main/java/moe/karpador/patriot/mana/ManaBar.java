@@ -3,6 +3,7 @@ package moe.karpador.patriot.mana;
 import moe.karpador.patriot.Patriot;
 import moe.karpador.patriot.items.ItemMeguminStaff;
 import moe.karpador.patriot.items.ItemPantsu;
+import moe.karpador.patriot.items.ItemStealMagic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
@@ -41,7 +42,8 @@ public class ManaBar extends Gui
             return;
 
         if (!(mainhandItem.getItem() instanceof ItemMeguminStaff) && !(offhandItem.getItem() instanceof ItemMeguminStaff) &&
-                !(mainhandItem.getItem() instanceof ItemPantsu) && !(offhandItem.getItem() instanceof ItemPantsu))
+                !(mainhandItem.getItem() instanceof ItemPantsu) && !(offhandItem.getItem() instanceof ItemPantsu) &&
+                !(mainhandItem.getItem() instanceof ItemStealMagic) && !(offhandItem.getItem() instanceof ItemStealMagic))
             return;
 
         IMana mana = mc.player.getCapability(ManaProvider.MANA_CAP, null);
