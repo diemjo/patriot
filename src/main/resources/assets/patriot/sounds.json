@@ -7,7 +7,7 @@
 
 	"kyaa" : {
 		"category": "player",
-		"sounds": ["patriot:gabriel_kya"],
+		"sounds": ["patriot:kyaa"],
 		"subtitle": "patriot.subtitle.kyaa"
 	}
 }
