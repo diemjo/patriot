@@ -46,7 +46,7 @@ public class ItemStealMagic extends Item {
             if (res != null && res.typeOfHit == RayTraceResult.Type.ENTITY) {
                 //player.sendMessage(new TextComponentString("Entity: "+res.entityHit));
                 if (res.entityHit instanceof EntityPlayer) {
-                    IMana targetMana = player.getCapability(ManaProvider.MANA_CAP, null);
+                    IMana targetMana = res.entityHit.getCapability(ManaProvider.MANA_CAP, null);
                     if (!targetMana.hasPantsu()) {
                         player.sendMessage(new TextComponentString(res.entityHit.getName()+" is not wearing pantsu right now"));
                         return super.onItemRightClick(world, player, hand);
