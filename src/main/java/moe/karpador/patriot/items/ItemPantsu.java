@@ -1,11 +1,9 @@
 package moe.karpador.patriot.items;
 
 import moe.karpador.patriot.Patriot;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
 public abstract class ItemPantsu extends ItemFood {
     public final String NAME;
@@ -19,6 +17,7 @@ public abstract class ItemPantsu extends ItemFood {
         setMaxStackSize(1);
         setCreativeTab(Patriot.PATRIOT_TAB);
         setRegistryName(new ResourceLocation(Patriot.MODID, NAME));
+        setAlwaysEdible();
     }
 
     @Override

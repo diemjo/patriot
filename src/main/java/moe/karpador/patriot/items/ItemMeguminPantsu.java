@@ -1,7 +1,6 @@
 package moe.karpador.patriot.items;
 
 import moe.karpador.patriot.mana.IMana;
-import moe.karpador.patriot.mana.Mana;
 import moe.karpador.patriot.mana.ManaProvider;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
