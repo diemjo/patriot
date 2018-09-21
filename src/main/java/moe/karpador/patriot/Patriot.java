@@ -4,6 +4,7 @@ import moe.karpador.patriot.items.ModItems;
 import moe.karpador.patriot.mana.IMana;
 import moe.karpador.patriot.mana.ManaProvider;
 import moe.karpador.patriot.proxy.CommonProxy;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -64,7 +65,12 @@ public class Patriot {
                 mana.increaseMana(1);
                 mana.pantsuTick();
             }
+            // prevent player from moving when exhausted
+            if(mana.isExhausted()) {
+                KeyBinding.unPressAllKeys();
+            }
         }
+
     }
 
     public static final CreativeTabs PATRIOT_TAB = new CreativeTabs(Patriot.MODID) {
