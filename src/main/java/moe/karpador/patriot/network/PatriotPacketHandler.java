@@ -19,6 +19,7 @@ public class PatriotPacketHandler {
         wrapper.registerMessage(ExplosionMessage.ExplosionMessageHandler.class, ExplosionMessage.class, getID(), Side.SERVER);
         wrapper.registerMessage(ExplosionMessage.ExplosionMessageHandler.class, ExplosionMessage.class, getID(), Side.CLIENT);
         wrapper.registerMessage(PantsuMessage.PantsuMessageHandler.class, PantsuMessage.class, getID(), Side.SERVER);
+        wrapper.registerMessage(PantsuMessage.PantsuMessageHandler.class, PantsuMessage.class, getID(), Side.CLIENT);
         Patriot.logger.info("NetworkWrapper registered");
     }
 }
