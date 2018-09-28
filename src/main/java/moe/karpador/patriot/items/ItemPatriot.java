@@ -26,6 +26,7 @@ public class ItemPatriot extends ItemSword {
     public ItemPatriot(ToolMaterial material) {
         super(material);
         setMaxStackSize(1);
+        setMaxDamage(200);
         setCreativeTab(Patriot.PATRIOT_TAB);
         setRegistryName(new ResourceLocation(Patriot.MODID, NAME));
     }
