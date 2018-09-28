@@ -39,7 +39,7 @@ public class ItemStealMagic extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         IMana playerMana = player.getCapability(ManaProvider.MANA_CAP, null);
-        if (playerMana==null || playerMana.getMana() < playerMana.getMaxMana()/3)
+        if (playerMana==null || (playerMana.getMana() < playerMana.getMaxMana()/3 && !player.isCreative()))
             return super.onItemRightClick(world, player, hand);
         if (world.isRemote) {
             RayTraceResult res = Minecraft.getMinecraft().objectMouseOver;
@@ -59,7 +59,8 @@ public class ItemStealMagic extends Item {
                         player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemGenericPantsu));
                         PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(false));
                     }
-                    playerMana.setMana(playerMana.getMana()-playerMana.getMaxMana()/3);
+                    if (!player.isCreative())
+                        playerMana.setMana(playerMana.getMana()-playerMana.getMaxMana()/3);
                     targetMana.setPantsu(false);
                     world.playSound(player, res.entityHit.getPosition(), PatriotSoundHandler.kyaa, SoundCategory.PLAYERS, 1, 1);
                 }
