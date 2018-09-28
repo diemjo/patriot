@@ -8,9 +8,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -41,11 +43,17 @@ public class ManaBar extends Gui
         if (mc.player.isCreative())
             return;
 
-        if (!(mainhandItem.getItem() instanceof ItemMeguminStaff) && !(offhandItem.getItem() instanceof ItemMeguminStaff) &&
-                !(mainhandItem.getItem() instanceof ItemPantsu) && !(offhandItem.getItem() instanceof ItemPantsu) &&
-                !(mainhandItem.getItem() instanceof ItemStealMagic) && !(offhandItem.getItem() instanceof ItemStealMagic))
+        boolean showMana = false;
+        for (int i=0; i<9; i++) {
+            Item item = mc.player.inventory.getStackInSlot(i).getItem();
+            if ((item instanceof ItemMeguminStaff) || (item instanceof ItemPantsu) || (item instanceof ItemStealMagic)) {
+                showMana = true;
+                break;
+            }
+        }
+        if (!showMana)
             return;
-
+        
         IMana mana = mc.player.getCapability(ManaProvider.MANA_CAP, null);
         if (mana == null) {
             return;
