@@ -1,6 +1,7 @@
 package moe.karpador.patriot.network;
 
 import io.netty.buffer.ByteBuf;
+import moe.karpador.patriot.PatriotSoundHandler;
 import moe.karpador.patriot.items.ModItems;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -36,6 +37,7 @@ public class PantsuMessage implements IMessage{
                     context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemMeguminPantsu));
                 else
                     context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemGenericPantsu));
+                context.getServerHandler().player.playSound(PatriotSoundHandler.kyaa, 1, 1);
             }
             return null;
         }

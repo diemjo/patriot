@@ -61,7 +61,7 @@ public class ItemStealMagic extends Item {
                     }
                     playerMana.setMana(playerMana.getMana()-playerMana.getMaxMana()/3);
                     targetMana.setPantsu(false);
-                    world.playSound((EntityPlayer) res.entityHit, res.entityHit.getPosition(), PatriotSoundHandler.kyaa, SoundCategory.PLAYERS, 1, 1);
+                    world.playSound(player, res.entityHit.getPosition(), PatriotSoundHandler.kyaa, SoundCategory.PLAYERS, 1, 1);
                 }
                 else {
                     player.sendMessage(new TextComponentString("you don't want to eat "+res.entityHit.getName()+" pantsu, do you?"));
