@@ -66,7 +66,7 @@ public class Patriot {
                 mana.pantsuTick();
             }
             // prevent player from moving when exhausted
-            if(mana.isExhausted()) {
+            if(mana.isExhausted() && event.player.world.isRemote) {
                 KeyBinding.unPressAllKeys();
             }
         }
