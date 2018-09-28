@@ -63,7 +63,7 @@ public class Patriot {
             IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
             if(mana != null) {
                 mana.increaseMana(1);
-                mana.pantsuTick();
+                mana.pantsuTick(event.player);
             }
             // prevent player from moving when exhausted
             if(mana.isExhausted() && event.player.world.isRemote) {

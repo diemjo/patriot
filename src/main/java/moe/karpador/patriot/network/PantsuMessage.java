@@ -73,13 +73,14 @@ public class PantsuMessage implements IMessage{
                     .filter(p -> p.getPersistentID().equals(playerID))
                     .findAny();
         }
+
         /**
          * removes or adds pantsu in the corresponding capability of server and sends a Message to all clients to remove/add the capability as well
          * should only be called from the server
           */
         private void handlePantsu(EntityPlayer targetPlayer, boolean stealingPantsu) {
-            setPantsu(targetPlayer, stealingPantsu);
             PatriotPacketHandler.wrapper.sendToAll(new PantsuMessage(true, stealingPantsu, targetPlayer)); // boolean meguminPantsu doesn't matter for clients
+            setPantsu(targetPlayer, stealingPantsu);
         }
 
         // removes or adds pantsu in the corresponding capability

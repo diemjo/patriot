@@ -1,6 +1,9 @@
 package moe.karpador.patriot.mana;
 
 import moe.karpador.patriot.ModConfig;
+import moe.karpador.patriot.network.PantsuMessage;
+import moe.karpador.patriot.network.PatriotPacketHandler;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class Mana implements IMana {
     //3 minutes cooldown
@@ -64,11 +67,11 @@ public class Mana implements IMana {
     }
 
     @Override
-    public void pantsuTick() {
+    public void pantsuTick(EntityPlayer target) {
         if(!hasPantsu) {
             pantsuCooldownCounter++;
             if(pantsuCooldownCounter >= pantsuCooldown) {
-                hasPantsu = true;
+                PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(true, false, target));
             }
         }
     }

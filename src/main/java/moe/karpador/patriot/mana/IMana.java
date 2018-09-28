@@ -1,5 +1,7 @@
 package moe.karpador.patriot.mana;
 
+import net.minecraft.entity.player.EntityPlayer;
+
 public interface IMana {
     public boolean enoughMana();
     public void useMana();
@@ -11,7 +13,7 @@ public interface IMana {
     public void setUltimateExplosion(boolean value);
     public boolean hasPantsu();
     public void setPantsu(boolean value);
-    public void pantsuTick();
+    public void pantsuTick(EntityPlayer target);
     public boolean isExhausted();
     public void setExhausted(boolean value);
 }
