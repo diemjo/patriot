@@ -11,6 +11,7 @@ public class Mana implements IMana {
     private final int pantsuCooldown = 20*300;
     private int pantsuCooldownCounter = 0;
     private boolean hasPantsu = true;
+    private boolean exhausted = false;
 
     @Override
     public boolean enoughMana() {
@@ -70,6 +71,16 @@ public class Mana implements IMana {
                 hasPantsu = true;
             }
         }
+    }
+
+    @Override
+    public boolean isExhausted() {
+        return exhausted;
+    }
+
+    @Override
+    public void setExhausted(boolean value) {
+        exhausted = value;
     }
 }
 

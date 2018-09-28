@@ -12,4 +12,6 @@ public interface IMana {
     public boolean hasPantsu();
     public void setPantsu(boolean value);
     public void pantsuTick();
+    public boolean isExhausted();
+    public void setExhausted(boolean value);
 }
