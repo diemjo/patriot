@@ -11,7 +11,7 @@ public class Mana implements IMana {
     public int mana = maxMana;
     private boolean ultimateExplosion = false;
     //5 minutes cooldown
-    private final int pantsuCooldown = 20*300;
+    private final int pantsuCooldown = 20*10;
     private int pantsuCooldownCounter = 0;
     private boolean hasPantsu = true;
     private boolean exhausted = false;
@@ -71,7 +71,8 @@ public class Mana implements IMana {
         if(!hasPantsu) {
             pantsuCooldownCounter++;
             if(pantsuCooldownCounter >= pantsuCooldown) {
-                PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(true, false, target));
+                //PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(true, false, target));
+                setPantsu(true);
             }
         }
     }
