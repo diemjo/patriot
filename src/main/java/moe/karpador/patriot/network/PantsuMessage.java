@@ -13,6 +13,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.nio.charset.Charset;
 import java.util.Optional;
@@ -62,12 +64,17 @@ public class PantsuMessage implements IMessage{
                         .ifPresent(p -> handlePantsu(p, message.stealingPantsu));
             }
             else {
-                findPlayerFromUUID(message.targetPlayerId, Minecraft.getMinecraft().world)
-                        .ifPresent(p -> setPantsu(p, message.stealingPantsu));
+                handleMessageClient(message);
             }
             return null;
         }
 
+        @SideOnly(Side.CLIENT)
+        private void handleMessageClient(PantsuMessage message) {
+            findPlayerFromUUID(message.targetPlayerId, Minecraft.getMinecraft().world)
+                    .ifPresent(p -> setPantsu(p, message.stealingPantsu));
+        }
+        
         private Optional<EntityPlayer> findPlayerFromUUID(UUID playerID, World world) {
             return world.playerEntities.parallelStream()
                     .filter(p -> p.getPersistentID().equals(playerID))
