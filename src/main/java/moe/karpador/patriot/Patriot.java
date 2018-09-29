@@ -78,6 +78,7 @@ public class Patriot {
             }
         }
     }
+
     @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if(!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer) {
@@ -86,7 +87,15 @@ public class Patriot {
             for (EntityPlayer player : event.getWorld().playerEntities) {
                 IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
                 if(mana != null) {
-                    PatriotPacketHandler.wrapper.sendTo(new PantsuMessage(true, !mana.hasPantsu(), player), (EntityPlayerMP) newPlayer); // on server you can just cast to EntityPlayerMP
+                    // make a new thread with a delay to give the player time to connect
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(1000);
+                            PatriotPacketHandler.wrapper.sendTo(new PantsuMessage(true, !mana.hasPantsu(), player), (EntityPlayerMP) newPlayer); // on server you can just cast to EntityPlayerMP
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
                 }
 
             }
