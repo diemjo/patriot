@@ -54,12 +54,14 @@ public class PantsuMessage implements IMessage{
         @Override
         public PantsuMessage onMessage(PantsuMessage message, MessageContext context) {
             if (context.side.isServer()) {
-                if (message.meguminPantsu)
-                    context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemMeguminPantsu));
-                else
-                    context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemGenericPantsu));
-                context.getServerHandler().player.playSound(PatriotSoundHandler.kyaa, 1, 1);
-                context.getServerHandler().player.sendMessage(new TextComponentString("stole pantsu from player:  " + message.targetPlayerId));
+                if(message.stealingPantsu) {
+                    if (message.meguminPantsu)
+                        context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemMeguminPantsu));
+                    else
+                        context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemGenericPantsu));
+                    context.getServerHandler().player.playSound(PatriotSoundHandler.kyaa, 1, 1);
+                    context.getServerHandler().player.sendMessage(new TextComponentString("stole pantsu from player:  " + message.targetPlayerId));
+                }
                 findPlayerFromUUID(message.targetPlayerId, context.getServerHandler().player.getServerWorld())
                         .ifPresent(p -> handlePantsu(p, message.stealingPantsu));
             }
@@ -74,7 +76,7 @@ public class PantsuMessage implements IMessage{
             findPlayerFromUUID(message.targetPlayerId, Minecraft.getMinecraft().world)
                     .ifPresent(p -> setPantsu(p, message.stealingPantsu));
         }
-        
+
         private Optional<EntityPlayer> findPlayerFromUUID(UUID playerID, World world) {
             return world.playerEntities.parallelStream()
                     .filter(p -> p.getPersistentID().equals(playerID))
