@@ -37,7 +37,7 @@ public class PantsuMessage implements IMessage{
     public void fromBytes(ByteBuf byteBuf) {
         meguminPantsu = byteBuf.readBoolean();
         stealingPantsu = byteBuf.readBoolean();
-        targetPlayerId = UUID.fromString(byteBuf.getCharSequence(byteBuf.readerIndex(), byteBuf.capacity()-1, Charset.defaultCharset()).toString());
+        targetPlayerId = UUID.fromString(byteBuf.getCharSequence(byteBuf.readerIndex(), byteBuf.capacity()-byteBuf.readerIndex(), Charset.defaultCharset()).toString());
     }
 
     @Override
