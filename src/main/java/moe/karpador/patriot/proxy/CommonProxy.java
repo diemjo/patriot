@@ -20,11 +20,11 @@ public class CommonProxy {
         PatriotSoundHandler.init();
         PatriotPacketHandler.setWrapper();
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
-
+        CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), Mana::new);
     }
 
     public void init(FMLInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), Mana::new);
+
 
     }
 
