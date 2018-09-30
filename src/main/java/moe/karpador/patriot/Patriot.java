@@ -5,6 +5,7 @@ import moe.karpador.patriot.mana.IMana;
 import moe.karpador.patriot.mana.ManaProvider;
 import moe.karpador.patriot.network.PantsuMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
+import moe.karpador.patriot.network.RestoreManaMessage;
 import moe.karpador.patriot.proxy.CommonProxy;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.creativetab.CreativeTabs;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Patriot.MODID, name = Patriot.NAME, version = Patriot.VERSION)
@@ -83,23 +85,31 @@ public class Patriot {
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if(!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer) {
             EntityPlayer newPlayer = (EntityPlayer) event.getEntity();
+            // send save of the mana capability of this player
+            IMana mana = newPlayer.getCapability(ManaProvider.MANA_CAP, null);
+            if(mana != null) {
+                sendDelayedMessage(new RestoreManaMessage(mana), (EntityPlayerMP) newPlayer);
+            }
             // send the hasPantsu field from the mana capability of all currently playing players to the new player
             for (EntityPlayer player : event.getWorld().playerEntities) {
-                IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
-                if(mana != null) {
-                    // make a new thread with a delay to give the player time to connect
-                    new Thread(() -> {
-                        try {
-                            Thread.sleep(1000);
-                            PatriotPacketHandler.wrapper.sendTo(new PantsuMessage(true, !mana.hasPantsu(), player), (EntityPlayerMP) newPlayer); // on server you can just cast to EntityPlayerMP
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }).start();
+                IMana playerMana = player.getCapability(ManaProvider.MANA_CAP, null);
+                if(playerMana != null) {
+                    sendDelayedMessage(new PantsuMessage(true, !playerMana.hasPantsu(), player), player);
                 }
-
             }
         }
+    }
+
+    // make a new thread with a delay to give the player time to connect, call only on server
+    private static void sendDelayedMessage(IMessage message, EntityPlayer player) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                PatriotPacketHandler.wrapper.sendTo(message, (EntityPlayerMP) player); // on server you can just cast to EntityPlayerMP
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
 
     }
 

@@ -5,6 +5,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,5 +37,15 @@ public class ManaProvider implements ICapabilitySerializable<NBTBase> {
     @Override
     public void deserializeNBT(NBTBase nbtBase) {
         MANA_CAP.getStorage().readNBT(MANA_CAP, this.instance, null, nbtBase);
+    }
+
+    // Allows for the capability to persist after death.
+
+    @SubscribeEvent
+    public void clonePlayer(PlayerEvent.Clone event) {
+
+        final IMana original = event.getOriginal().getCapability(ManaProvider.MANA_CAP, null);
+        final IMana clone = event.getEntity().getCapability(ManaProvider.MANA_CAP, null);
+        clone.setMana(original.getMana());
     }
 }

@@ -13,6 +13,8 @@ public interface IMana {
     public void setUltimateExplosion(boolean value);
     public boolean hasPantsu();
     public void setPantsu(boolean value);
+    public int getPantsuCooldownCounter();
+    public void setPantsuCooldownCounter(int value);
     public void pantsuTick(EntityPlayer target);
     public boolean isExhausted();
     public void setExhausted(boolean value);

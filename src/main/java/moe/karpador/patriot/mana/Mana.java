@@ -8,7 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 public class Mana implements IMana {
     //3 minutes cooldown
     public static int maxMana = 20*ModConfig.meguminStaff.cooldown;
-    public int mana = maxMana;
+    public int mana;
     private boolean ultimateExplosion = false;
     //5 minutes cooldown
     private final int pantsuCooldown = 20*10;
@@ -64,6 +64,16 @@ public class Mana implements IMana {
     public void setPantsu(boolean value) {
         hasPantsu = value;
         pantsuCooldownCounter = 0;
+    }
+
+    @Override
+    public int getPantsuCooldownCounter() {
+        return pantsuCooldownCounter;
+    }
+
+    @Override
+    public void setPantsuCooldownCounter(int value) {
+        pantsuCooldownCounter = value;
     }
 
     @Override

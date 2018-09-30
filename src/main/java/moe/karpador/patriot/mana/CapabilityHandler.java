@@ -18,13 +18,4 @@ public class CapabilityHandler {
             return;
         event.addCapability(MANA_CAP, new ManaProvider());
     }
-    // Allows for the capability to persist after death.
-
-    @SubscribeEvent
-    public void clonePlayer(PlayerEvent.Clone event) {
-
-        final IMana original = event.getOriginal().getCapability(ManaProvider.MANA_CAP, null);
-        final IMana clone = event.getEntity().getCapability(ManaProvider.MANA_CAP, null);
-        clone.setMana(original.getMana());
-    }
 }

@@ -1,0 +1,63 @@
+package moe.karpador.patriot.network;
+
+import io.netty.buffer.ByteBuf;
+import moe.karpador.patriot.mana.IMana;
+import moe.karpador.patriot.mana.ManaProvider;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+
+import java.util.UUID;
+
+public class RestoreManaMessage implements IMessage {
+
+    private int mana;
+    private boolean ultimateExplosion;
+    private boolean hasPantsu;
+    private int pantsuCooldown;
+
+
+    public RestoreManaMessage() {}
+
+    public RestoreManaMessage(IMana manaToRestore) {
+        mana = manaToRestore.getMana();
+        ultimateExplosion = manaToRestore.hasUltimateExplosion();
+        hasPantsu = manaToRestore.hasPantsu();
+        pantsuCooldown = manaToRestore.getPantsuCooldownCounter();
+    }
+
+    @Override
+    public void fromBytes(ByteBuf buf) {
+        mana = buf.readInt();
+        ultimateExplosion = buf.readBoolean();
+        hasPantsu = buf.readBoolean();
+        pantsuCooldown = buf.readInt();
+    }
+
+    @Override
+    public void toBytes(ByteBuf buf) {
+        buf.writeInt(mana);
+        buf.writeBoolean(ultimateExplosion);
+        buf.writeBoolean(hasPantsu);
+        buf.writeInt(pantsuCooldown);
+    }
+
+    public static class RestoreManaMessageHandler implements IMessageHandler<RestoreManaMessage, RestoreManaMessage> {
+        @Override
+        public RestoreManaMessage onMessage(RestoreManaMessage message, MessageContext context) {
+            if(context.side.isClient()) {
+                IMana mana = Minecraft.getMinecraft().player.getCapability(ManaProvider.MANA_CAP, null);
+                if(mana == null) {
+                    return null;
+                }
+                mana.setMana(message.mana);
+                mana.setUltimateExplosion(message.ultimateExplosion);
+                mana.setPantsu(message.hasPantsu);
+                mana.setPantsuCooldownCounter(message.pantsuCooldown);
+            }
+            return null;
+        }
+    }
+}
