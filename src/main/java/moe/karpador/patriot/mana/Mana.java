@@ -3,7 +3,9 @@ package moe.karpador.patriot.mana;
 import moe.karpador.patriot.ModConfig;
 import moe.karpador.patriot.network.PantsuMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
+import moe.karpador.patriot.network.RestoreManaMessage;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class Mana implements IMana {
     //3 minutes cooldown
@@ -22,10 +24,6 @@ public class Mana implements IMana {
     }
 
     @Override
-    public void useMana() {
-        mana=0;
-    }
-    @Override
     public void increaseMana(int amount) {
         mana = Math.min(mana+amount, maxMana);
     }
@@ -41,8 +39,11 @@ public class Mana implements IMana {
     }
 
     @Override
-    public void setMana(int value) {
+    public void setMana(int value, boolean sendManaToServer) {
         mana = Math.max(0, Math.min(value, maxMana));
+        if(sendManaToServer) {
+            PatriotPacketHandler.wrapper.sendToServer(new RestoreManaMessage(this));
+        }
     }
 
     @Override

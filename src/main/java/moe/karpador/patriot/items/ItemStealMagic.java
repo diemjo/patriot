@@ -60,7 +60,7 @@ public class ItemStealMagic extends Item {
                         PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(false, true, (EntityPlayer) res.entityHit));
                     }
                     if (!player.isCreative())
-                        playerMana.setMana(playerMana.getMana()-playerMana.getMaxMana()/3);
+                        playerMana.setMana(playerMana.getMana()-playerMana.getMaxMana()/3, true);
                     targetMana.setPantsu(false);
                     world.playSound(player, res.entityHit.getPosition(), PatriotSoundHandler.kyaa, SoundCategory.PLAYERS, 1, 1);
                 }

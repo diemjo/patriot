@@ -26,12 +26,12 @@ public class ManaStorage implements Capability.IStorage<IMana> {
     public void readNBT(Capability<IMana> capability, IMana iMana, EnumFacing enumFacing, NBTBase nbtBase) {
         if(nbtBase instanceof NBTTagCompound) {
             NBTTagCompound saveData = (NBTTagCompound) nbtBase;
-            iMana.setMana(saveData.getInteger(mana));
+            iMana.setMana(saveData.getInteger(mana), false);
             iMana.setUltimateExplosion(saveData.getBoolean(ultimateExplosion));
             iMana.setPantsu(saveData.getBoolean(hasPantsu));
         }
         else if(nbtBase instanceof NBTTagInt) { // restore data from old save
-            iMana.setMana(((NBTPrimitive)nbtBase).getInt());
+            iMana.setMana(((NBTPrimitive)nbtBase).getInt(), false);
         }
         // iMana.setMana(((NBTPrimitive)nbtBase).getInt());
     }

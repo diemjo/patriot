@@ -17,7 +17,7 @@ public class ItemGenericPantsu extends ItemPantsu {
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
         IMana mana = entityLiving.getCapability(ManaProvider.MANA_CAP, null);
         if(mana != null) {
-            mana.setMana(Mana.maxMana);
+            mana.setMana(Mana.maxMana, true);
         }
         return super.onItemUseFinish(stack, worldIn, entityLiving);
     }

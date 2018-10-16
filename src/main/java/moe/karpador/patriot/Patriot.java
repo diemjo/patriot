@@ -14,9 +14,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -98,6 +100,14 @@ public class Patriot {
                 }
             }
         }
+    }
+    // Allows for the capability to persist after death.
+    @SubscribeEvent
+    public void clonePlayer(PlayerEvent.Clone event) {
+        event.getEntity().sendMessage(new TextComponentString("cloned player"));
+        final IMana original = event.getOriginal().getCapability(ManaProvider.MANA_CAP, null);
+        final IMana clone = event.getEntity().getCapability(ManaProvider.MANA_CAP, null);
+        clone.setMana(original.getMana(), false);
     }
 
     // make a new thread with a delay to give the player time to connect, call only on server

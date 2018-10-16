@@ -4,11 +4,10 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public interface IMana {
     public boolean enoughMana();
-    public void useMana();
     public void increaseMana(int amount);
     public int getMana();
     public int getMaxMana();
-    public void setMana(int value);
+    public void setMana(int value, boolean sendMessageToServer);
     public boolean hasUltimateExplosion();
     public void setUltimateExplosion(boolean value);
     public boolean hasPantsu();
