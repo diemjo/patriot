@@ -129,7 +129,7 @@ public class ModItems {
     }
 
     public static void registerItems(RegistryEvent.Register<Item> event) {
-        IForgeRegistry registry = event.getRegistry();
+        IForgeRegistry<Item> registry = event.getRegistry();
         items.forEach(registry::register);
     }
 
