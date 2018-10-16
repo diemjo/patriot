@@ -64,7 +64,6 @@ public class RestoreManaMessage implements IMessage {
         @SideOnly(Side.CLIENT)
         private void handleMessageClient(RestoreManaMessage message) {
             IMana mana = Minecraft.getMinecraft().player.getCapability(ManaProvider.MANA_CAP, null);
-            Minecraft.getMinecraft().player.sendMessage(new TextComponentString("received manarestoremessage:\nmana: "+ message.mana + " ultimate explosion "+message.ultimateExplosion));
             if(mana == null) {
                 return;
             }
