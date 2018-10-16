@@ -62,7 +62,9 @@ public class ItemMeguminStaff extends Item {
         IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
         if (mana.enoughMana() || player.isCreative()) {
             castExplosion(world, player, mana);
-            mana.useMana();
+            if (!player.isCreative()) {
+                mana.useMana();
+            }
         } else {
             if (world.isRemote) {
                 //playerIn.sendMessage(new TextComponentTranslation(String.format("%s needs to recharge", playerIn.getHeldItemMainhand().getDisplayName())));
