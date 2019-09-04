@@ -93,6 +93,7 @@ public class ItemMeguminStaff extends Item {
         if (world.isRemote) {
             PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), 15));
         }
+        final int explosionStrength = getExplosionStrength(player);
         new Thread(() -> {
             try {
                 Thread.sleep(2000);
@@ -102,8 +103,7 @@ public class ItemMeguminStaff extends Item {
                 mana.setExhausted(false);
                 if  (world.isRemote) {
                     PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), brightness));
-                    int strength = getExplosionStrength(player);
-                    PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), strength));
+                    PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), explosionStrength));
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
