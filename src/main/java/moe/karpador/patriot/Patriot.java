@@ -88,16 +88,19 @@ public class Patriot {
         if(!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer) {
             EntityPlayer newPlayer = (EntityPlayer) event.getEntity();
             // send save of the mana capability of this player
-            IMana mana = newPlayer.getCapability(ManaProvider.MANA_CAP, null);
-            if(mana != null) {
-                sendDelayedMessage(new RestoreManaMessage(mana), (EntityPlayerMP) newPlayer);
+            IMana newPlayerMana = newPlayer.getCapability(ManaProvider.MANA_CAP, null);
+            if(newPlayerMana != null) {
+                sendDelayedMessage(new RestoreManaMessage(newPlayerMana), (EntityPlayerMP) newPlayer);
             }
             // send the hasPantsu field from the mana capability of all currently playing players to the new player
+            PantsuMessage newPlayerPantsuMsg = new PantsuMessage(true, !newPlayerMana.hasPantsu(), newPlayer);
             for (EntityPlayer player : event.getWorld().playerEntities) {
                 IMana playerMana = player.getCapability(ManaProvider.MANA_CAP, null);
                 if(playerMana != null) {
-                    sendDelayedMessage(new PantsuMessage(true, !playerMana.hasPantsu(), player), player);
+                    sendDelayedMessage(new PantsuMessage(true, !playerMana.hasPantsu(), player), newPlayer);
                 }
+                // send all currently playing players pantsu state of new player
+                PatriotPacketHandler.wrapper.sendTo(newPlayerPantsuMsg, (EntityPlayerMP) player); // on server you can just cast to EntityPlayerMP
             }
         }
     }
@@ -120,7 +123,6 @@ public class Patriot {
                 e.printStackTrace();
             }
         }).start();
-
     }
 
 
