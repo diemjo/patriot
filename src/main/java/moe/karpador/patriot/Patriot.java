@@ -85,23 +85,35 @@ public class Patriot {
     @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if(!event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer) {
-            EntityPlayer newPlayer = (EntityPlayer) event.getEntity();
-            // send save of the mana capability of this player
-            IMana newPlayerMana = newPlayer.getCapability(ManaProvider.MANA_CAP, null);
-            if(newPlayerMana != null) {
-                sendDelayedMessage(new RestoreManaMessage(newPlayerMana), (EntityPlayerMP) newPlayer);
-            }
-
-            RestorePantsuMessage newPlayerPantsuMsg = new RestorePantsuMessage(newPlayerMana, newPlayer);
-            // send pantsu state from the mana capability of all currently playing players to the new player
-            for (EntityPlayer player : event.getWorld().playerEntities) {
-                IMana playerMana = player.getCapability(ManaProvider.MANA_CAP, null);
-                if(playerMana != null) {
-                    sendDelayedMessage(new RestorePantsuMessage(playerMana, player), newPlayer);
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                    syncManaWithNewPlayer(event); // sync mana later to give client time to load world
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                // send the pantsu state of new player to all currently playing players
-                PatriotPacketHandler.wrapper.sendTo(newPlayerPantsuMsg, (EntityPlayerMP) player); // on server you can just cast to EntityPlayerMP
+            }).start();
+        }
+    }
+
+    // server synchronizes the mana capability with the new player and current players
+    private static void syncManaWithNewPlayer(EntityJoinWorldEvent event) {
+        EntityPlayer newPlayer = (EntityPlayer) event.getEntity();
+        // send save of the mana capability of this player
+        IMana newPlayerMana = newPlayer.getCapability(ManaProvider.MANA_CAP, null);
+        if(newPlayerMana != null) {
+            sendDelayedMessage(new RestoreManaMessage(newPlayerMana), (EntityPlayerMP) newPlayer);
+        }
+
+        RestorePantsuMessage newPlayerPantsuMsg = new RestorePantsuMessage(newPlayerMana, newPlayer);
+        // send pantsu state from the mana capability of all currently playing players to the new player
+        for (EntityPlayer player : event.getWorld().playerEntities) {
+            IMana playerMana = player.getCapability(ManaProvider.MANA_CAP, null);
+            if(playerMana != null) {
+                sendDelayedMessage(new RestorePantsuMessage(playerMana, player), newPlayer);
             }
+            // send the pantsu state of new player to all currently playing players
+            PatriotPacketHandler.wrapper.sendTo(newPlayerPantsuMsg, (EntityPlayerMP) player); // on server you can just cast to EntityPlayerMP
         }
     }
     // Allows for the capability to persist after death.
