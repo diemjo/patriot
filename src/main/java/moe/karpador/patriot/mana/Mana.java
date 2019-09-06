@@ -13,7 +13,7 @@ public class Mana implements IMana {
     public int mana;
     private boolean ultimateExplosion = false;
     //5 minutes cooldown
-    private final int pantsuCooldown = 20*10;
+    private final int pantsuCooldown = 20*30;
     private int pantsuCooldownCounter = 0;
     private boolean hasPantsu = true;
     private boolean exhausted = false;

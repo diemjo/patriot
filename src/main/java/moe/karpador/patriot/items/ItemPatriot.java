@@ -43,7 +43,7 @@ public class ItemPatriot extends ItemSword {
             if (systemTime - lastUsageTime > 200 && !worldIn.isRemote) {
                 IMana mana = playerIn.getCapability(ManaProvider.MANA_CAP, null);
                 int manaCount = mana == null ? -1 : mana.getMana();
-                playerIn.sendMessage(new TextComponentString("Patriot best girl! Mana: " + manaCount));
+                playerIn.sendMessage(new TextComponentString("Patriot best girl! Mana: " + manaCount + ", "+ (!mana.hasPantsu() ? "not " : "") + "wearing pantsu"));
                 lastUsageTime = systemTime;
             }
         }

@@ -74,6 +74,8 @@ public class Patriot {
             IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
             if(mana != null) {
                 mana.increaseMana(1);
+
+
                 mana.pantsuTick(event.player);
             }
             // prevent player from moving when exhausted
@@ -98,6 +100,7 @@ public class Patriot {
                 IMana playerMana = player.getCapability(ManaProvider.MANA_CAP, null);
                 if(playerMana != null) {
                     sendDelayedMessage(new PantsuMessage(true, !playerMana.hasPantsu(), player), newPlayer);
+                    sendDelayedMessage(new PantsuMessage(true, !newPlayerMana.hasPantsu(), newPlayer), player);
                 }
                 // send all currently playing players pantsu state of new player
                 PatriotPacketHandler.wrapper.sendTo(newPlayerPantsuMsg, (EntityPlayerMP) player); // on server you can just cast to EntityPlayerMP
