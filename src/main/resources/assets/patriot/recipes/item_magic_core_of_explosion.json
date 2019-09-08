@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "patriot",
+  "pattern": [
+    " r ",
+    "rdr",
+    " r "
+  ],
+  "key": {
+    "d": {
+      "item": "patriot:item_magic_core"
+    },
+    "r": {
+      "item": "minecraft:tnt"
+    }
+  },
+  "result": {
+    "item": "patriot:item_magic_core_of_explosion"
+  }
+}

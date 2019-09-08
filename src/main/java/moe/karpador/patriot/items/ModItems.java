@@ -24,7 +24,8 @@ public class ModItems {
     public static ItemTissueBox itemTissueBox;
     public static ItemMeguminStaff itemMeguminStaff;
     public static ItemMagicCloth itemMagicCloth;
-    public static ItemMeguminStaffCore itemMeguminStaffCore;
+    public static ItemMagicCore itemMagicCore;
+    public static ItemMagicCoreOfExplosion  itemMagicCoreOfExplosion;
 
     public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material", Patriot.RESOURCE_PREFIX +"megumin_hat",4,new int[] {-1,-1,-1,-1}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
     public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.RESOURCE_PREFIX +"megumin_cloths",4,new int[] {-1,-1,-1,-1}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
@@ -55,8 +56,11 @@ public class ModItems {
         itemMagicCloth = new ItemMagicCloth();
         items.add(itemMagicCloth);
 
-        itemMeguminStaffCore = new ItemMeguminStaffCore();
-        items.add(itemMeguminStaffCore);
+        itemMagicCore = new ItemMagicCore();
+        items.add(itemMagicCore);
+
+        itemMagicCoreOfExplosion = new ItemMagicCoreOfExplosion();
+        items.add(itemMagicCoreOfExplosion);
 
         itemMeguminHat = new ItemMeguminCloths(meguminHatMaterial, 1, EntityEquipmentSlot.HEAD, "armor_megumin_hat");
         itemMeguminChest = new ItemMeguminCloths(meguminClothsMaterial, 1, EntityEquipmentSlot.CHEST, "armor_megumin_chest");
@@ -98,9 +102,13 @@ public class ModItems {
         ModelLoader.registerItemVariants(itemMagicCloth, modelItemMagicCloth);
         mesher.register(itemMagicCloth, 0, modelItemMagicCloth);
 
-        ModelResourceLocation modelItemMeguminStaffCore = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemMeguminStaffCore.NAME), "inventory");
-        ModelLoader.registerItemVariants(itemMeguminStaffCore, modelItemMeguminStaffCore);
-        mesher.register(itemMeguminStaffCore, 0, modelItemMeguminStaffCore);
+        ModelResourceLocation modelItemMagicCore = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemMagicCore.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemMagicCore, modelItemMagicCore);
+        mesher.register(itemMagicCore, 0, modelItemMagicCore);
+
+        ModelResourceLocation modelItemMagicCoreOfExplosion = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemMagicCoreOfExplosion.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemMagicCoreOfExplosion, modelItemMagicCoreOfExplosion);
+        mesher.register(itemMagicCoreOfExplosion, 0, modelItemMagicCoreOfExplosion);
 
 
         registerArmor(itemMeguminHat,mesher);
