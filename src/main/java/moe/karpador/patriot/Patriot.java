@@ -104,7 +104,7 @@ public class Patriot {
         // send save of the mana capability of this player
         IMana newPlayerMana = newPlayer.getCapability(ManaProvider.MANA_CAP, null);
         if(newPlayerMana != null) {
-            sendDelayedMessage(new RestoreManaMessage(newPlayerMana), (EntityPlayerMP) newPlayer);
+            PatriotPacketHandler.wrapper.sendTo(new RestoreManaMessage(newPlayerMana), (EntityPlayerMP) newPlayer);
         }
 
         RestorePantsuMessage newPlayerPantsuMsg = new RestorePantsuMessage(newPlayerMana, newPlayer);
@@ -112,7 +112,7 @@ public class Patriot {
         for (EntityPlayer player : event.getWorld().playerEntities) {
             IMana playerMana = player.getCapability(ManaProvider.MANA_CAP, null);
             if(playerMana != null) {
-                sendDelayedMessage(new RestorePantsuMessage(playerMana, player), newPlayer);
+                PatriotPacketHandler.wrapper.sendTo(new RestorePantsuMessage(playerMana, player), (EntityPlayerMP)newPlayer);
             }
             // send the pantsu state of new player to all currently playing players
             PatriotPacketHandler.wrapper.sendTo(newPlayerPantsuMsg, (EntityPlayerMP) player); // on server you can just cast to EntityPlayerMP
@@ -126,19 +126,6 @@ public class Patriot {
         final IMana clone = event.getEntity().getCapability(ManaProvider.MANA_CAP, null);
         clone.setMana(original.getMana(), false);
     }
-
-    // make a new thread with a delay to give the player time to connect, call only on server
-    private static void sendDelayedMessage(IMessage message, EntityPlayer player) {
-        new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-                PatriotPacketHandler.wrapper.sendTo(message, (EntityPlayerMP) player); // on server you can just cast to EntityPlayerMP
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
-
 
     public static final CreativeTabs PATRIOT_TAB = new CreativeTabs(Patriot.MODID) {
         @Override
