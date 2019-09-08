@@ -29,11 +29,14 @@ public class ModItems {
 
     public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material", Patriot.RESOURCE_PREFIX +"megumin_hat",4,new int[] {-1,-1,-1,-1}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
     public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.RESOURCE_PREFIX +"megumin_cloths",4,new int[] {-1,-1,-1,-1}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
+    public static ItemArmor.ArmorMaterial genericPantsuMaterial = EnumHelper.addArmorMaterial("generic_pantsu_material", Patriot.RESOURCE_PREFIX+"generic_pantsu", 4, new int[] {0,0,0,0}, 9, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 2.0F);
+    public static ItemArmor.ArmorMaterial meguminPantsuMaterial = EnumHelper.addArmorMaterial("megumin_pantsu_material", Patriot.RESOURCE_PREFIX+"megumin_pantsu", 4, new int[] {0,0,0,0}, 9, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 2.0F);
     public static ItemMeguminCloths itemMeguminHat;
     public static ItemMeguminCloths itemMeguminChest;
     public static ItemMeguminCloths itemMeguminSkirt;
     public static ItemMeguminCloths itemMeguminShoes;
     public static MeguminHatModel meguminHatModel;
+    public static PantsuModel pantsuModel;
     public static ItemGenericPantsu itemGenericPantsu;
     public static ItemMeguminPantsu itemMeguminPantsu;
     public static ItemStealMagic itemStealMagic;
@@ -71,9 +74,9 @@ public class ModItems {
         items.add(itemMeguminSkirt);
         items.add(itemMeguminShoes);
 
-        itemGenericPantsu = new ItemGenericPantsu(0, 0, false);
+        itemGenericPantsu = new ItemGenericPantsu(genericPantsuMaterial, 1, EntityEquipmentSlot.HEAD);
         items.add(itemGenericPantsu);
-        itemMeguminPantsu = new ItemMeguminPantsu(0,0,false);
+        itemMeguminPantsu = new ItemMeguminPantsu(meguminPantsuMaterial, 1, EntityEquipmentSlot.HEAD);
         items.add(itemMeguminPantsu);
 
         itemStealMagic = new ItemStealMagic();
@@ -111,15 +114,17 @@ public class ModItems {
         mesher.register(itemMagicCoreOfExplosion, 0, modelItemMagicCoreOfExplosion);
 
 
-        registerArmor(itemMeguminHat,mesher);
-        registerArmor(itemMeguminChest,mesher);
-        registerArmor(itemMeguminSkirt,mesher);
-        registerArmor(itemMeguminShoes,mesher);
+        registerArmor(itemMeguminHat,mesher,itemMeguminHat.name);
+        registerArmor(itemMeguminChest,mesher,itemMeguminChest.name);
+        registerArmor(itemMeguminSkirt,mesher,itemMeguminSkirt.name);
+        registerArmor(itemMeguminShoes,mesher,itemMeguminShoes.name);
         meguminHatModel = new MeguminHatModel();
 
-        initItemClient(itemGenericPantsu, itemGenericPantsu.NAME, mesher);
+        registerArmor(itemGenericPantsu,mesher,itemGenericPantsu.NAME);
+        registerArmor(itemMeguminPantsu,mesher,itemMeguminPantsu.NAME);
+        pantsuModel = new PantsuModel();
+
         initItemClient(itemStealMagic, itemStealMagic.NAME, mesher);
-        initItemClient(itemMeguminPantsu, itemMeguminPantsu.NAME, mesher);
     }
 
     @SideOnly(Side.CLIENT)
@@ -130,8 +135,8 @@ public class ModItems {
     }
 
     @SideOnly(Side.CLIENT)
-    private static void registerArmor(ItemMeguminCloths item, ItemModelMesher mesher) {
-        ModelResourceLocation modelItem = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, item.name), "inventory");
+    private static void registerArmor(ItemArmor item, ItemModelMesher mesher, String name) {
+        ModelResourceLocation modelItem = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, name), "inventory");
         ModelLoader.registerItemVariants(item, modelItem);
         mesher.register(item, 0, modelItem);
     }

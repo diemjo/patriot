@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "patriot:items/item_generic_pantsu"
+        "layer0": "patriot:items/armor_generic_pantsu"
     }
 }

@@ -1,23 +1,31 @@
 package moe.karpador.patriot.items;
 
 import moe.karpador.patriot.Patriot;
-import net.minecraft.item.ItemFood;
+import moe.karpador.patriot.PatriotSoundHandler;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class ItemPantsu extends ItemFood {
+import static net.minecraft.inventory.EntityEquipmentSlot.HEAD;
+
+public abstract class ItemPantsu extends ItemArmor {
     public final String NAME;
 
-    /**
-     * @param amount how much the food bar will be increased (10 means half of the bar)
-     */
-    public ItemPantsu(int amount, float saturation, boolean isWolfFood, String pantsuName) {
-        super(amount, saturation, isWolfFood);
-        this.NAME = pantsuName;
-        setMaxStackSize(1);
+    public ItemPantsu(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn, String pantsuName) {
+        super(materialIn, renderIndexIn, equipmentSlotIn);
+        NAME = pantsuName;
         setCreativeTab(Patriot.PATRIOT_TAB);
         setRegistryName(new ResourceLocation(Patriot.MODID, NAME));
-        setAlwaysEdible();
     }
 
     @Override
@@ -28,5 +36,73 @@ public abstract class ItemPantsu extends ItemFood {
     @Override
     public String getUnlocalizedName() {
         return String.format("item.%s%s", Patriot.RESOURCE_PREFIX, NAME); //item.patriot:NAME
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        ItemStack itemStack = playerIn.getHeldItem(handIn);
+        playerIn.setActiveHand(handIn);
+        return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
+    }
+
+    @Override
+    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+        if (entityLiving instanceof EntityPlayer) {
+            EntityPlayer entityplayer = (EntityPlayer)entityLiving;
+            worldIn.playSound(entityplayer, entityplayer.posX, entityplayer.posY, entityplayer.posZ, PatriotSoundHandler.wow, SoundCategory.PLAYERS, 1, 1);
+            if(entityplayer instanceof  EntityPlayerMP) {
+                CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP)entityplayer, stack); // not sure what consumeItemTrigger does, but ItemFood does this. thus it might be necessary
+            }
+        }
+
+        stack.shrink(1);
+        return stack;
+    }
+
+    @Override
+    public EnumAction getItemUseAction(ItemStack stack) {
+        return EnumAction.EAT;
+    }
+
+    @Override
+    public int getMaxItemUseDuration(ItemStack stack) {
+        return 32;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped defaultModel) {
+        if (itemStack != null) {
+            if (itemStack.getItem() instanceof ItemArmor) {
+                EntityEquipmentSlot type = ((ItemArmor) itemStack.getItem()).armorType;
+                switch (type) {
+                    case HEAD:
+                        break;
+                    default:
+                        return super.getArmorModel(entityLiving, itemStack, armorSlot, defaultModel);
+                }
+                ModelBiped armorModel = ModItems.pantsuModel;
+                armorModel.bipedHead.showModel = armorSlot == HEAD;
+                armorModel.bipedHeadwear.showModel = armorSlot == HEAD;
+                /*armorModel.bipedBody.showModel = (armorSlot == EntityEquipmentSlot.CHEST)
+                        || (armorSlot == EntityEquipmentSlot.CHEST);
+                armorModel.bipedRightArm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+                armorModel.bipedLeftArm.showModel = armorSlot == EntityEquipmentSlot.CHEST;
+                armorModel.bipedRightLeg.showModel = (armorSlot == EntityEquipmentSlot.LEGS)
+                        || (armorSlot == EntityEquipmentSlot.FEET);
+                armorModel.bipedLeftLeg.showModel = (armorSlot == EntityEquipmentSlot.LEGS)
+                        || (armorSlot == EntityEquipmentSlot.FEET);*/
+
+                armorModel.isSneak = defaultModel.isSneak;
+                armorModel.isRiding = defaultModel.isRiding;
+                armorModel.isChild = defaultModel.isChild;
+                armorModel.rightArmPose = defaultModel.rightArmPose;
+                armorModel.leftArmPose = defaultModel.leftArmPose;
+
+                return armorModel;
+            }
+        }
+        return null;
+
     }
 }

@@ -3,12 +3,13 @@ package moe.karpador.patriot.items;
 import moe.karpador.patriot.mana.IMana;
 import moe.karpador.patriot.mana.ManaProvider;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemMeguminPantsu extends ItemPantsu {
-    public ItemMeguminPantsu(int amount, float saturation, boolean isWolfFood) {
-        super(amount, saturation, isWolfFood, "item_megumin_pantsu");
+    public ItemMeguminPantsu(ArmorMaterial materialIn, int renderIndexIn, EntityEquipmentSlot equipmentSlotIn){
+        super(materialIn, renderIndexIn, equipmentSlotIn, "armor_megumin_pantsu");
     }
 
     @Override

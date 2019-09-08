@@ -9,5 +9,11 @@
 		"category": "player",
 		"sounds": ["patriot:kyaa"],
 		"subtitle": "patriot.subtitle.kyaa"
+	},
+
+	"wow" : {
+		"category": "player",
+		"sounds": ["patriot:wow"],
+		"subtitle": "patriot.subtitle.wow"
 	}
 }
