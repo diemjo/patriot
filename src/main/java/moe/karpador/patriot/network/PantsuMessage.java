@@ -24,28 +24,23 @@ public class PantsuMessage implements IMessage{
 
     // true if pantsu is megumin pantsu
     boolean meguminPantsu;
-    // true when stealing, false when regenerating pantsu
-    boolean stealingPantsu;
     UUID targetPlayerId;
     public PantsuMessage() {}
 
-    public PantsuMessage(boolean meguminPantsu, boolean stealingPantsu, EntityPlayer stealPantsuFrom) {
+    public PantsuMessage(boolean meguminPantsu, EntityPlayer stealPantsuFrom) {
         this.meguminPantsu = meguminPantsu;
-        this.stealingPantsu = stealingPantsu;
         targetPlayerId = stealPantsuFrom.getPersistentID();
     }
 
     @Override
     public void fromBytes(ByteBuf byteBuf) {
         meguminPantsu = byteBuf.readBoolean();
-        stealingPantsu = byteBuf.readBoolean();
         targetPlayerId = UUID.fromString(byteBuf.getCharSequence(byteBuf.readerIndex(), byteBuf.capacity()-byteBuf.readerIndex(), Charset.defaultCharset()).toString());
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeBoolean(meguminPantsu);
-        buf.writeBoolean(stealingPantsu);
         buf.writeCharSequence(targetPlayerId.toString().subSequence(0, targetPlayerId.toString().length()), Charset.defaultCharset());
     }
 
@@ -54,16 +49,14 @@ public class PantsuMessage implements IMessage{
         @Override
         public PantsuMessage onMessage(PantsuMessage message, MessageContext context) {
             if (context.side.isServer()) {
-                if(message.stealingPantsu) {
-                    if (message.meguminPantsu)
-                        context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemMeguminPantsu));
-                    else
-                        context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemGenericPantsu));
-                    context.getServerHandler().player.playSound(PatriotSoundHandler.kyaa, 1, 1);
-                    context.getServerHandler().player.sendMessage(new TextComponentString("stole pantsu from player:  " + message.targetPlayerId));
-                }
+                if (message.meguminPantsu)
+                    context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemMeguminPantsu));
+                else
+                    context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemGenericPantsu));
+                context.getServerHandler().player.playSound(PatriotSoundHandler.kyaa, 1, 1);
+                context.getServerHandler().player.sendMessage(new TextComponentString("stole pantsu from player:  " + message.targetPlayerId));
                 findPlayerFromUUID(message.targetPlayerId, context.getServerHandler().player.getServerWorld())
-                        .ifPresent(p -> handlePantsu(p, message.stealingPantsu));
+                        .ifPresent(p -> handlePantsu(p));
             }
             else {
                 handleMessageClient(message);
@@ -74,7 +67,7 @@ public class PantsuMessage implements IMessage{
         @SideOnly(Side.CLIENT)
         private void handleMessageClient(PantsuMessage message) {
             findPlayerFromUUID(message.targetPlayerId, Minecraft.getMinecraft().world)
-                    .ifPresent(p -> setPantsu(p, message.stealingPantsu));
+                    .ifPresent(p -> removePantsu(p));
         }
 
         private Optional<EntityPlayer> findPlayerFromUUID(UUID playerID, World world) {
@@ -84,22 +77,19 @@ public class PantsuMessage implements IMessage{
         }
 
         /**
-         * removes or adds pantsu in the corresponding capability of server and sends a Message to all clients to remove/add the capability as well
+         * removes pantsu in the corresponding capability of server and sends a Message to all clients to remove the capability as well
          * should only be called from the server
           */
-        private void handlePantsu(EntityPlayer targetPlayer, boolean stealingPantsu) {
-            PatriotPacketHandler.wrapper.sendToAll(new PantsuMessage(true, stealingPantsu, targetPlayer)); // boolean meguminPantsu doesn't matter for clients
-            setPantsu(targetPlayer, stealingPantsu);
+        private void handlePantsu(EntityPlayer targetPlayer) {
+            PatriotPacketHandler.wrapper.sendToAll(new PantsuMessage(true, targetPlayer)); // boolean meguminPantsu doesn't matter for clients
+            removePantsu(targetPlayer);
         }
 
-        // removes or adds pantsu in the corresponding capability
-        private void setPantsu(EntityPlayer targetPlayer, boolean stealingPantsu) {
+        private void removePantsu(EntityPlayer targetPlayer) {
             IMana mana = targetPlayer.getCapability(ManaProvider.MANA_CAP, null);
             if(mana == null)
                 return;
-            mana.setPantsu(!stealingPantsu);
+            mana.setPantsu(false);
         }
-
     }
-
 }

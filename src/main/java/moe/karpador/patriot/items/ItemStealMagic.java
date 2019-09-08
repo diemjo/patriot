@@ -53,11 +53,11 @@ public class ItemStealMagic extends Item {
                     }
                     if (getNumberOfMeguminClothes((EntityPlayer) res.entityHit) == 4) {
                         player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemMeguminPantsu));
-                        PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(true, true, (EntityPlayer) res.entityHit));
+                        PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(true, (EntityPlayer) res.entityHit));
                     }
                     else {
                         player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemGenericPantsu));
-                        PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(false, true, (EntityPlayer) res.entityHit));
+                        PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(false, (EntityPlayer) res.entityHit));
                     }
                     if (!player.isCreative())
                         playerMana.setMana(playerMana.getMana()-playerMana.getMaxMana()/3, true);
