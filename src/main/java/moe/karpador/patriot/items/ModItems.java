@@ -27,7 +27,7 @@ public class ModItems {
     public static ItemMagicCore itemMagicCore;
     public static ItemMagicCoreOfExplosion  itemMagicCoreOfExplosion;
 
-    public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material", Patriot.RESOURCE_PREFIX +"megumin_hat",4,new int[] {-1,-1,-1,-1}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
+    public static ItemArmor.ArmorMaterial meguminHatMaterial = EnumHelper.addArmorMaterial("megumin_hat_material", Patriot.RESOURCE_PREFIX +"megumin_hat",4,new int[] {-1,-1,-1,-1}, 9, null,2.0F);
     public static ItemArmor.ArmorMaterial meguminClothsMaterial = EnumHelper.addArmorMaterial("megumin_cloths_material",Patriot.RESOURCE_PREFIX +"megumin_cloths",4,new int[] {-1,-1,-1,-1}, 9, SoundEvents.ENTITY_ZOMBIE_AMBIENT,2.0F);
     public static ItemArmor.ArmorMaterial genericPantsuMaterial = EnumHelper.addArmorMaterial("generic_pantsu_material", Patriot.RESOURCE_PREFIX+"generic_pantsu", 4, new int[] {0,0,0,0}, 9, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 2.0F);
     public static ItemArmor.ArmorMaterial meguminPantsuMaterial = EnumHelper.addArmorMaterial("megumin_pantsu_material", Patriot.RESOURCE_PREFIX+"megumin_pantsu", 4, new int[] {0,0,0,0}, 9, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 2.0F);

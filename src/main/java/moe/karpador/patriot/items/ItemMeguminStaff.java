@@ -69,6 +69,7 @@ public class ItemMeguminStaff extends Item {
             if (world.isRemote) {
                 //playerIn.sendMessage(new TextComponentTranslation(String.format("%s needs to recharge", playerIn.getHeldItemMainhand().getDisplayName())));
                 player.sendMessage(new TextComponentString("You are exhausted from casting magic and need to rest..."));
+                world.playSound(player, player.getPosition(), PatriotSoundHandler.sadmegumin, SoundCategory.PLAYERS, 1, 1);
             }
         }
 

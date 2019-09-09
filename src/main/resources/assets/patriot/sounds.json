@@ -15,5 +15,20 @@
 		"category": "player",
 		"sounds": ["patriot:wow"],
 		"subtitle": "patriot.subtitle.wow"
+	},
+	"sadmegumin" : {
+		"category": "player",
+		"sounds": ["patriot:sadmegumin"],
+		"subtitle": "patriot.subtitle.sad_megumin"
+	},
+	"oimatte" : {
+		"category": "player",
+		"sounds": ["patriot:oimatte"],
+		"subtitle": "patriot.subtitle.oimatte"
+	},
+	"wagana" : {
+		"category": "player",
+		"sounds": ["patriot:wagana"],
+		"subtitle": "patriot.subtitle.wagana"
 	}
 }

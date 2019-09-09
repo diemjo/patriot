@@ -17,12 +17,21 @@ public class PatriotSoundHandler {
     public static SoundEvent kyaa;
     @ObjectHolder("wow")
     public static SoundEvent wow;
+    @ObjectHolder("sadmegumin")
+    public static SoundEvent sadmegumin;
+    @ObjectHolder("oimatte")
+    public static SoundEvent oimatte;
+    @ObjectHolder("wagana")
+    public static SoundEvent wagana;
 
     public static void init() {
         //size = SoundEvent.REGISTRY.getKeys().size();
         explosion = register("explosion");
         kyaa = register("kyaa");
         wow = register("wow");
+        sadmegumin = register("sadmegumin");
+        oimatte = register("oimatte");
+        wagana = register("wagana");
     }
 
     private static SoundEvent register(String name) {
@@ -37,7 +46,11 @@ public class PatriotSoundHandler {
         @SubscribeEvent
         public static void registerSoundEvents(RegistryEvent.Register<SoundEvent> event) {
             event.getRegistry().registerAll(explosion,
-                                            kyaa, wow);
+                    kyaa,
+                    wow,
+                    sadmegumin,
+                    oimatte,
+                    wagana);
         }
     }
 }

@@ -47,12 +47,8 @@ public abstract class ItemPantsu extends ItemArmor {
 
     @Override
     public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-        if (entityLiving instanceof EntityPlayer) {
-            EntityPlayer entityplayer = (EntityPlayer)entityLiving;
-            worldIn.playSound(entityplayer, entityplayer.posX, entityplayer.posY, entityplayer.posZ, PatriotSoundHandler.wow, SoundCategory.PLAYERS, 1, 1);
-            if(entityplayer instanceof  EntityPlayerMP) {
-                CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP)entityplayer, stack); // not sure what consumeItemTrigger does, but ItemFood does this. thus it might be necessary
-            }
+        if(entityLiving instanceof  EntityPlayerMP) {
+            CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP)entityLiving, stack); // not sure what consumeItemTrigger does, but ItemFood does this. thus it might be necessary
         }
 
         stack.shrink(1);
