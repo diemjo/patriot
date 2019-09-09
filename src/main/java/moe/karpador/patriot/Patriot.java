@@ -14,10 +14,10 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -26,8 +26,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Patriot.MODID, name = Patriot.NAME, version = Patriot.VERSION)
@@ -125,6 +123,27 @@ public class Patriot {
         final IMana original = event.getOriginal().getCapability(ManaProvider.MANA_CAP, null);
         final IMana clone = event.getEntity().getCapability(ManaProvider.MANA_CAP, null);
         clone.setMana(original.getMana(), false);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000); // when regenerating immediately, clients time is still night
+                regenerateManaAfterSleep(event.getEntityPlayer());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private static void regenerateManaAfterSleep(EntityPlayer player) {
+        if(player.world.getWorldTime()%24000 < 1000) {
+            IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
+            if (mana != null) {
+                mana.increaseMana((int) Math.ceil(mana.getMaxMana() * 0.75));
+            }
+        }
     }
 
     public static final CreativeTabs PATRIOT_TAB = new CreativeTabs(Patriot.MODID) {
