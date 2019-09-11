@@ -1,5 +1,6 @@
 package moe.karpador.patriot.proxy;
 
+import moe.karpador.patriot.PantsuOverlay;
 import moe.karpador.patriot.items.ModItems;
 import moe.karpador.patriot.mana.ManaBar;
 import net.minecraft.client.Minecraft;
@@ -14,6 +15,7 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
         MinecraftForge.EVENT_BUS.register(new ManaBar(Minecraft.getMinecraft()));
+        MinecraftForge.EVENT_BUS.register(new PantsuOverlay(Minecraft.getMinecraft()));
     }
 
     @Override
