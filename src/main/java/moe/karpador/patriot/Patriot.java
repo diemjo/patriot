@@ -116,14 +116,14 @@ public class Patriot {
             PatriotPacketHandler.wrapper.sendTo(newPlayerPantsuMsg, (EntityPlayerMP) player); // on server you can just cast to EntityPlayerMP
         }
     }
-    // Allows for the capability to persist after death.
+    /*// Allows for the capability to persist after death.
     @SubscribeEvent
-    public void clonePlayer(PlayerEvent.Clone event) {
+    public static void clonePlayer(PlayerEvent.Clone event) {
         event.getEntity().sendMessage(new TextComponentString("cloned player"));
         final IMana original = event.getOriginal().getCapability(ManaProvider.MANA_CAP, null);
         final IMana clone = event.getEntity().getCapability(ManaProvider.MANA_CAP, null);
         clone.setMana(original.getMana(), false);
-    }
+    }*/
 
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
