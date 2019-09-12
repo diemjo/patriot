@@ -58,8 +58,9 @@ public class PantsuOverlay extends Gui {
         GlStateManager.enableBlend();
         // Here we draw the background bar which contains a transparent section; note the new size
         //drawTexturedModalRect(xPos, yPos, 0, 0, 56, 9);
-        drawTexturedModalRect(0, 0, 0, 0, sr.getScaledWidth(), sr.getScaledHeight());
-        //mc.fontRenderer.drawString("GUI: " + (texture==texture_generic?"TextureGeneric":(texture==texture_megumin?"TextureMegumin":"none")), 0, 150, 1);
+        //drawTexturedModalRect(0, 0, 0, 0, sr.getScaledWidth(), 50);
+        drawScaledCustomSizeModalRect(0, 0, 0, 0, 1280, 720, sr.getScaledWidth(), sr.getScaledHeight(), 1280, 720);
+        //mc.fontRenderer.drawString("GUI ("+sr.getScaledWidth()+"x"+sr.getScaledHeight()+"): " + (texture==texture_generic?"TextureGeneric":(texture==texture_megumin?"TextureMegumin":"none")), 0, 150, 1);
         GlStateManager.popAttrib();
     }
 }
