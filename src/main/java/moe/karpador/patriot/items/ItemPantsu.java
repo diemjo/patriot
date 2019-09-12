@@ -1,9 +1,11 @@
 package moe.karpador.patriot.items;
 
 import moe.karpador.patriot.Patriot;
-import moe.karpador.patriot.PatriotSoundHandler;
+import moe.karpador.patriot.mana.IPantsuStack;
+import moe.karpador.patriot.mana.PantsuStackProvider;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -11,10 +13,15 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 import static net.minecraft.inventory.EntityEquipmentSlot.HEAD;
 
@@ -63,6 +70,21 @@ public abstract class ItemPantsu extends ItemArmor {
     @Override
     public int getMaxItemUseDuration(ItemStack stack) {
         return 32;
+    }
+
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+        return new PantsuStackProvider();
+        //return super.initCapabilities(stack, nbt);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        IPantsuStack pantsuStack = stack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
+        if(pantsuStack != null) {
+            tooltip.add(pantsuStack.getOwnerName());
+        }
     }
 
     @SideOnly(Side.CLIENT)

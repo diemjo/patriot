@@ -3,7 +3,9 @@ package moe.karpador.patriot.items;
 import moe.karpador.patriot.Patriot;
 import moe.karpador.patriot.PatriotSoundHandler;
 import moe.karpador.patriot.mana.IMana;
+import moe.karpador.patriot.mana.IPantsuStack;
 import moe.karpador.patriot.mana.ManaProvider;
+import moe.karpador.patriot.mana.PantsuStackProvider;
 import moe.karpador.patriot.network.PantsuMessage;
 import moe.karpador.patriot.network.PatriotPacketHandler;
 import net.minecraft.client.Minecraft;
@@ -52,11 +54,34 @@ public class ItemStealMagic extends Item {
                         return super.onItemRightClick(world, player, hand);
                     }
                     if (getNumberOfMeguminClothes((EntityPlayer) res.entityHit) == 4) {
-                        player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemMeguminPantsu));
+                        ItemStack pantsuStack = new ItemStack(ModItems.itemMeguminPantsu);
+                        player.inventory.addItemStackToInventory(pantsuStack);
+                        setPantsuOwnerName(pantsuStack, res.entityHit.getName(), player);
+
+                        IPantsuStack iPantsuStack = pantsuStack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
+                        if(iPantsuStack == null) {
+                            player.sendMessage(new TextComponentString("stack capability is null"));
+                        }
+                        else{
+                            player.sendMessage(new TextComponentString("Stack holds value: " + iPantsuStack.getOwnerName()));
+                        }
+
+
                         PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(true, (EntityPlayer) res.entityHit));
                     }
                     else {
-                        player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemGenericPantsu));
+                        ItemStack pantsuStack = new ItemStack(ModItems.itemGenericPantsu);
+                        player.inventory.addItemStackToInventory(pantsuStack);
+                        setPantsuOwnerName(pantsuStack, res.entityHit.getName(), player);
+
+                        IPantsuStack iPantsuStack = pantsuStack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
+                        if(iPantsuStack == null) {
+                            player.sendMessage(new TextComponentString("stack capability is null"));
+                        }
+                        else{
+                            player.sendMessage(new TextComponentString("Stack holds value: " + iPantsuStack.getOwnerName()));
+                        }
+
                         PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(false, (EntityPlayer) res.entityHit));
                     }
                     if (!player.isCreative())
@@ -70,6 +95,19 @@ public class ItemStealMagic extends Item {
             }
         }
         return super.onItemRightClick(world, player, hand);
+    }
+
+    private void setPantsuOwnerName(ItemStack itemStack, String ownerName, EntityPlayer player) {
+        IPantsuStack pantsuStack = itemStack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
+        pantsuStack.setOwnerName(String.format("Belongs to %s", ownerName));
+        if(pantsuStack == null) {
+            player.sendMessage(new TextComponentString("set pantsu, pantsu stack is null"));
+        }
+        else{
+            player.sendMessage(new TextComponentString("set pantsu: "+pantsuStack.getOwnerName()));
+        }
+
+
     }
 
     public int getNumberOfMeguminClothes(EntityPlayer player) {
