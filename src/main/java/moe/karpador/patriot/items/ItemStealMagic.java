@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -55,7 +56,12 @@ public class ItemStealMagic extends Item {
                     }
                     if (getNumberOfMeguminClothes((EntityPlayer) res.entityHit) == 4) {
                         ItemStack pantsuStack = new ItemStack(ModItems.itemMeguminPantsu);
-                        player.inventory.addItemStackToInventory(pantsuStack);
+                        pantsuStack.setTagCompound(new NBTTagCompound());
+                        pantsuStack.getTagCompound().setString("owner", res.entityHit.getName());
+                        /*player.inventory.addItemStackToInventory(pantsuStack);
+                        int slot = player.inventory.getFirstEmptyStack();
+                        player.inventory.add(slot, pantsuStack);
+                        pantsuStack = player.inventory.getStackInSlot(slot);
                         setPantsuOwnerName(pantsuStack, res.entityHit.getName(), player);
 
                         IPantsuStack iPantsuStack = pantsuStack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
@@ -64,7 +70,7 @@ public class ItemStealMagic extends Item {
                         }
                         else{
                             player.sendMessage(new TextComponentString("Stack holds value: " + iPantsuStack.getOwnerName()));
-                        }
+                        }*/
 
 
                         PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(true, (EntityPlayer) res.entityHit));
@@ -99,12 +105,13 @@ public class ItemStealMagic extends Item {
 
     private void setPantsuOwnerName(ItemStack itemStack, String ownerName, EntityPlayer player) {
         IPantsuStack pantsuStack = itemStack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
-        pantsuStack.setOwnerName(String.format("Belongs to %s", ownerName));
+
         if(pantsuStack == null) {
             player.sendMessage(new TextComponentString("set pantsu, pantsu stack is null"));
         }
         else{
             player.sendMessage(new TextComponentString("set pantsu: "+pantsuStack.getOwnerName()));
+            pantsuStack.setOwnerName(String.format("Belongs to %s", ownerName));
         }
 
 

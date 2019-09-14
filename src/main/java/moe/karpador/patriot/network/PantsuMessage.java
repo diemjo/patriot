@@ -8,6 +8,7 @@ import moe.karpador.patriot.mana.ManaProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -49,10 +50,17 @@ public class PantsuMessage implements IMessage{
         @Override
         public PantsuMessage onMessage(PantsuMessage message, MessageContext context) {
             if (context.side.isServer()) {
-                if (message.meguminPantsu)
-                    context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemMeguminPantsu));
-                else
-                    context.getServerHandler().player.inventory.addItemStackToInventory(new ItemStack(ModItems.itemGenericPantsu));
+                ItemStack pantsu = null;
+                if (message.meguminPantsu) {
+                    pantsu = new ItemStack(ModItems.itemMeguminPantsu);
+
+                }
+                else {
+                    pantsu = new ItemStack(ModItems.itemGenericPantsu);
+                }
+                pantsu.setTagCompound(new NBTTagCompound());
+                pantsu.getTagCompound().setString("owner", findPlayerFromUUID(message.targetPlayerId, context.getServerHandler().player.getServerWorld()).get().getName());
+                context.getServerHandler().player.inventory.addItemStackToInventory(pantsu);
                 context.getServerHandler().player.playSound(PatriotSoundHandler.kyaa, 1, 1);
                 context.getServerHandler().player.sendMessage(new TextComponentString("stole pantsu from player:  " + message.targetPlayerId));
                 findPlayerFromUUID(message.targetPlayerId, context.getServerHandler().player.getServerWorld())

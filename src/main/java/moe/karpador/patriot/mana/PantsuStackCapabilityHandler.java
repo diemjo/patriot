@@ -12,6 +12,6 @@ public class PantsuStackCapabilityHandler {
     @SubscribeEvent
     public void attachCapability(AttachCapabilitiesEvent<ItemStack> event)
     {
-        event.addCapability(PantsuStack_CAP, new PantsuStackProvider());
+        //event.addCapability(PantsuStack_CAP, new PantsuStackProvider());
     }
 }
