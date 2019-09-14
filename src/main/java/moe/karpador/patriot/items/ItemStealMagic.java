@@ -55,9 +55,9 @@ public class ItemStealMagic extends Item {
                         return super.onItemRightClick(world, player, hand);
                     }
                     if (getNumberOfMeguminClothes((EntityPlayer) res.entityHit) == 4) {
-                        ItemStack pantsuStack = new ItemStack(ModItems.itemMeguminPantsu);
+                        /*ItemStack pantsuStack = new ItemStack(ModItems.itemMeguminPantsu);
                         pantsuStack.setTagCompound(new NBTTagCompound());
-                        pantsuStack.getTagCompound().setString("owner", res.entityHit.getName());
+                        pantsuStack.getTagCompound().setString("owner", res.entityHit.getName());*/
                         /*player.inventory.addItemStackToInventory(pantsuStack);
                         int slot = player.inventory.getFirstEmptyStack();
                         player.inventory.add(slot, pantsuStack);
@@ -76,9 +76,11 @@ public class ItemStealMagic extends Item {
                         PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(true, (EntityPlayer) res.entityHit));
                     }
                     else {
-                        ItemStack pantsuStack = new ItemStack(ModItems.itemGenericPantsu);
+                        /*ItemStack pantsuStack = new ItemStack(ModItems.itemGenericPantsu);
                         player.inventory.addItemStackToInventory(pantsuStack);
-                        setPantsuOwnerName(pantsuStack, res.entityHit.getName(), player);
+                        pantsuStack.setTagCompound(new NBTTagCompound());
+                        pantsuStack.getTagCompound().setString("owner", res.entityHit.getName());*/
+                        /*setPantsuOwnerName(pantsuStack, res.entityHit.getName(), player);
 
                         IPantsuStack iPantsuStack = pantsuStack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
                         if(iPantsuStack == null) {
@@ -86,7 +88,7 @@ public class ItemStealMagic extends Item {
                         }
                         else{
                             player.sendMessage(new TextComponentString("Stack holds value: " + iPantsuStack.getOwnerName()));
-                        }
+                        }*/
 
                         PatriotPacketHandler.wrapper.sendToServer(new PantsuMessage(false, (EntityPlayer) res.entityHit));
                     }

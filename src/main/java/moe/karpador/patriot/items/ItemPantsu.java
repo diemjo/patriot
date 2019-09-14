@@ -81,9 +81,12 @@ public abstract class ItemPantsu extends ItemArmor {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        IPantsuStack pantsuStack = stack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
+        /*IPantsuStack pantsuStack = stack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
         if(pantsuStack != null) {
             tooltip.add(pantsuStack.getOwnerName());
+        }*/
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("owner")) {
+            tooltip.add("Owner: "+stack.getTagCompound().getString("owner"));
         }
     }
 
