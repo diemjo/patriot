@@ -86,7 +86,7 @@ public abstract class ItemPantsu extends ItemArmor {
             tooltip.add(pantsuStack.getOwnerName());
         }*/
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("owner")) {
-            tooltip.add("Owner: "+stack.getTagCompound().getString("owner"));
+            tooltip.add("§bBelongs to §l"+stack.getTagCompound().getString("owner")+"§r");
         }
     }
 
