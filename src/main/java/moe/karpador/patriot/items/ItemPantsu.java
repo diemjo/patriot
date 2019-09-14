@@ -1,8 +1,6 @@
 package moe.karpador.patriot.items;
 
 import moe.karpador.patriot.Patriot;
-import moe.karpador.patriot.mana.IPantsuStack;
-import moe.karpador.patriot.mana.PantsuStackProvider;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.util.ITooltipFlag;
@@ -72,19 +70,8 @@ public abstract class ItemPantsu extends ItemArmor {
         return 32;
     }
 
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        return new PantsuStackProvider();
-        //return super.initCapabilities(stack, nbt);
-    }
-
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        /*IPantsuStack pantsuStack = stack.getCapability(PantsuStackProvider.PANTSU_STACK_CAP, null);
-        if(pantsuStack != null) {
-            tooltip.add(pantsuStack.getOwnerName());
-        }*/
         if (stack.hasTagCompound() && stack.getTagCompound().hasKey("owner")) {
             tooltip.add("§bBelongs to §l"+stack.getTagCompound().getString("owner")+"§r");
         }

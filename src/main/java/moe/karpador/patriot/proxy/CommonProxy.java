@@ -17,9 +17,7 @@ public class CommonProxy {
         PatriotSoundHandler.init();
         PatriotPacketHandler.setWrapper();
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
-        MinecraftForge.EVENT_BUS.register(new PantsuStackCapabilityHandler());
         CapabilityManager.INSTANCE.register(IMana.class, new ManaStorage(), Mana::new);
-        CapabilityManager.INSTANCE.register(IPantsuStack.class, new PantsuStackStorage(), PantsuStack::new);
     }
 
     public void init(FMLInitializationEvent event) {

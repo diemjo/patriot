@@ -62,7 +62,6 @@ public class PantsuMessage implements IMessage{
                 pantsu.getTagCompound().setString("owner", findPlayerFromUUID(message.targetPlayerId, context.getServerHandler().player.getServerWorld()).get().getName());
                 context.getServerHandler().player.inventory.addItemStackToInventory(pantsu);
                 context.getServerHandler().player.playSound(PatriotSoundHandler.kyaa, 1, 1);
-                context.getServerHandler().player.sendMessage(new TextComponentString("stole pantsu from player:  " + message.targetPlayerId));
                 findPlayerFromUUID(message.targetPlayerId, context.getServerHandler().player.getServerWorld())
                         .ifPresent(p -> handlePantsu(p));
             }
