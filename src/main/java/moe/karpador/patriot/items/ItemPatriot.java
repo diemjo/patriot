@@ -38,7 +38,7 @@ public class ItemPatriot extends ItemSword {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-        if (playerIn.isSneaking()) {
+        /*if (playerIn.isSneaking()) {
             long systemTime = System.currentTimeMillis();
             if (systemTime - lastUsageTime > 200 && !worldIn.isRemote) {
                 IMana mana = playerIn.getCapability(ManaProvider.MANA_CAP, null);
@@ -46,7 +46,7 @@ public class ItemPatriot extends ItemSword {
                 playerIn.sendMessage(new TextComponentString("Patriot best girl! Mana: " + manaCount + ", "+ (!mana.hasPantsu() ? "not " : "") + "wearing pantsu"));
                 lastUsageTime = systemTime;
             }
-        }
+        }*/
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
