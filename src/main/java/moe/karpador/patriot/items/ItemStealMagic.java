@@ -20,6 +20,8 @@ import net.minecraft.world.World;
 
 public class ItemStealMagic extends Item {
     public static final String NAME = "item_steal_magic";
+    private long lastUsageTime = 0;
+
     public ItemStealMagic() {
         setMaxStackSize(1);
         setCreativeTab(Patriot.PATRIOT_TAB);
@@ -38,9 +40,21 @@ public class ItemStealMagic extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+        long systemTime = System.currentTimeMillis();
+        if (systemTime - lastUsageTime < 200) {
+            return super.onItemRightClick(world, player, hand);
+        }
         IMana playerMana = player.getCapability(ManaProvider.MANA_CAP, null);
+        if (player.isSneaking()) {
+            if (!world.isRemote) {
+                String pantsu = (playerMana!=null && playerMana.hasPantsu()) ? "" : "not ";
+                player.sendMessage(new TextComponentString("You are currently "+pantsu+"wearing pantsu"));
+            }
+            return super.onItemRightClick(world, player, hand);
+        }
         if (playerMana==null || (playerMana.getMana() < playerMana.getMaxMana()/3 && !player.isCreative())) {
-            player.sendMessage(new TextComponentString("You are exhausted from casting magic and need to rest..."));
+            if (!world.isRemote)
+                player.sendMessage(new TextComponentString("You are exhausted from casting magic and need to rest..."));
             return super.onItemRightClick(world, player, hand);
         }
         if (world.isRemote) {
