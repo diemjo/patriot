@@ -1,10 +1,16 @@
 item.patriot:item_patriot.name=The One And Only Patriot
+item.patriot:item_toilet_paper.name=Toilet Paper
+item.patriot:item_tissue_box.name=Tissue Box
 item.patriot:item_megumin_staff.name=Black Staff of Explosion
 item.patriot:item_magic_cloth.name=Magic Cloth
-item.patriot:item_megumin_staff_core.name=Magical Core of Explosion
+item.patriot:item_magic_core.name=Magical Core
+item.patriot:item_magic_core_of_explosion.name=Magical Core of Explosion
 item.patriot:armor_megumin_hat.name=Megumin Hat
 item.patriot:armor_megumin_chest.name=Megumin Chest
 item.patriot:armor_megumin_skirt.name=Megumin Skirt
 item.patriot:armor_megumin_shoes.name=Megumin Shoes
+item.patriot:armor_generic_pantsu.name=Pantsu
+item.patriot:armor_megumin_pantsu.name=Megumin Pantsu
+item.patriot:item_steal_magic.name=Steal Magic
 
 itemGroup.patriot=Patriot

@@ -1,12 +1,15 @@
 package moe.karpador.patriot.items;
 
 import moe.karpador.patriot.Patriot;
+import moe.karpador.patriot.PatriotSoundHandler;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -66,6 +69,15 @@ public class ItemMeguminCloths extends ItemArmor {
             }
         }
         return null;
+    }
 
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+        ActionResult<ItemStack> result = super.onItemRightClick(worldIn, playerIn, handIn);
+        if(result.getType() == EnumActionResult.SUCCESS && armorType == HEAD) {
+            worldIn.playSound(playerIn, playerIn.posX, playerIn.posY,playerIn.posZ, PatriotSoundHandler.wagana, SoundCategory.PLAYERS, 0.7f, 1);
+        }
+        return result;
     }
 }

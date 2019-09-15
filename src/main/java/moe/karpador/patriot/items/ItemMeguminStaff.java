@@ -61,19 +61,22 @@ public class ItemMeguminStaff extends Item {
 
         IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
         if (mana.enoughMana() || player.isCreative()) {
-            castExplosion(world, player);
-            mana.useMana();
+            castExplosion(world, player, mana);
+            if (!player.isCreative() && world.isRemote) {
+                mana.setMana(0, true);
+            }
         } else {
             if (world.isRemote) {
                 //playerIn.sendMessage(new TextComponentTranslation(String.format("%s needs to recharge", playerIn.getHeldItemMainhand().getDisplayName())));
                 player.sendMessage(new TextComponentString("You are exhausted from casting magic and need to rest..."));
+                world.playSound(player, player.getPosition(), PatriotSoundHandler.sadmegumin, SoundCategory.PLAYERS, 1, 1);
             }
         }
 
         return super.onItemRightClick(world, player, hand);
     }
 
-    private void castExplosion(World world, EntityPlayer player) {
+    private void castExplosion(World world, EntityPlayer player, IMana mana) {
         BlockPos blockPos = null;
         int blockBrightness = 0;
         float maxDistance = 50;
@@ -81,23 +84,27 @@ public class ItemMeguminStaff extends Item {
             blockPos = getCollisionBlockPos(maxDistance);
             blockBrightness = world.getLightFor(EnumSkyBlock.BLOCK, blockPos);
         }
-        final Potion potion = Potion.getPotionById(2);
+        /*final Potion potion = Potion.getPotionById(2);
         if (potion!=null)
             potion.applyAttributesModifiersToEntity(player, player.getAttributeMap(), 7);
+        */
+        mana.setExhausted(true);
         final BlockPos pos = blockPos;
         final int brightness = blockBrightness;
         if (world.isRemote) {
             PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), 15));
         }
+        final int explosionStrength = getExplosionStrength(player);
         new Thread(() -> {
             try {
                 Thread.sleep(2000);
-                if (potion!=null)
+                /*if (potion!=null)
                     potion.removeAttributesModifiersFromEntity(player, player.getAttributeMap(), 7);
+                */
+                mana.setExhausted(false);
                 if  (world.isRemote) {
                     PatriotPacketHandler.wrapper.sendToServer(new LightMessage(pos.getX(), pos.getY(), pos.getZ(), brightness));
-                    int strength = getExplosionStrength(player);
-                    PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), strength));
+                    PatriotPacketHandler.wrapper.sendToServer(new ExplosionMessage(pos.getX(), pos.getY(), pos.getZ(), explosionStrength));
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -169,10 +176,15 @@ public class ItemMeguminStaff extends Item {
 
     private int getExplosionStrength(EntityPlayer player) {
         int count = 0;
+        IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
         for (ItemStack item : player.getArmorInventoryList()) {
             if (item.getItem() instanceof ItemMeguminCloths) {
                 count++;
             }
+        }
+        if(mana.hasUltimateExplosion()) {
+            mana.setUltimateExplosion(false);
+            return (1+2*count)*2;
         }
         return 1+2*count;
     }

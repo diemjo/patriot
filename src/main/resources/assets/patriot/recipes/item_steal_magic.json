@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "patriot",
+  "ingredients": [
+    {
+      "item" : "minecraft:book"
+    },
+    {
+      "item" : "patriot:item_magic_core"
+    }
+  ],
+  "result": {
+    "item": "patriot:item_steal_magic"
+  }
+}

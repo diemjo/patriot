@@ -26,6 +26,7 @@ public class ItemPatriot extends ItemSword {
     public ItemPatriot(ToolMaterial material) {
         super(material);
         setMaxStackSize(1);
+        setMaxDamage(200);
         setCreativeTab(Patriot.PATRIOT_TAB);
         setRegistryName(new ResourceLocation(Patriot.MODID, NAME));
     }
@@ -37,13 +38,15 @@ public class ItemPatriot extends ItemSword {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-        long systemTime = System.currentTimeMillis();
-        if (systemTime-lastUsageTime>200 && !worldIn.isRemote) {
-            IMana mana = playerIn.getCapability(ManaProvider.MANA_CAP,null);
-            int manaCount = mana==null? -1 : mana.getMana();
-            playerIn.sendMessage(new TextComponentString("Patriot best girl! Mana: "+ manaCount));
-            lastUsageTime = systemTime;
-        }
+        /*if (playerIn.isSneaking()) {
+            long systemTime = System.currentTimeMillis();
+            if (systemTime - lastUsageTime > 200 && !worldIn.isRemote) {
+                IMana mana = playerIn.getCapability(ManaProvider.MANA_CAP, null);
+                int manaCount = mana == null ? -1 : mana.getMana();
+                playerIn.sendMessage(new TextComponentString("Patriot best girl! Mana: " + manaCount + ", "+ (!mana.hasPantsu() ? "not " : "") + "wearing pantsu"));
+                lastUsageTime = systemTime;
+            }
+        }*/
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 

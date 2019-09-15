@@ -2,13 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "group": "patriot",
   "pattern": [
-    "psp",
+    "tpt",
     " s ",
     " s "
   ],
   "key": {
     "p": {
-      "item": "minecraft:paper"
+      "item": "patriot:item_toilet_paper"
+    },
+    "t": {
+      "item": "patriot:item_tissue_box"
     },
     "s": {
       "item": "minecraft:stick"
