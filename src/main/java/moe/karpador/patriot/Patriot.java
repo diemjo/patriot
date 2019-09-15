@@ -142,6 +142,7 @@ public class Patriot {
             IMana mana = player.getCapability(ManaProvider.MANA_CAP, null);
             if (mana != null) {
                 mana.increaseMana((int) Math.ceil(mana.getMaxMana() * 0.75));
+                mana.setPantsu(true);
             }
         }
     }
