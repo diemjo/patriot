@@ -12,5 +12,6 @@ item.patriot:armor_megumin_shoes.name=Megumin Shoes
 item.patriot:armor_generic_pantsu.name=Pantsu
 item.patriot:armor_megumin_pantsu.name=Megumin Pantsu
 item.patriot:item_steal_magic.name=Steal Magic
+item.patriot:item_tutorial_book.name=Patriot Tutorial
 
 itemGroup.patriot=Patriot

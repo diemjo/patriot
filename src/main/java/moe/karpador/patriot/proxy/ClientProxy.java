@@ -1,6 +1,7 @@
 package moe.karpador.patriot.proxy;
 
 import moe.karpador.patriot.PantsuOverlay;
+import moe.karpador.patriot.gui.GuiTutorialBook;
 import moe.karpador.patriot.items.ModItems;
 import moe.karpador.patriot.mana.ManaBar;
 import net.minecraft.client.Minecraft;
@@ -29,4 +30,8 @@ public class ClientProxy extends CommonProxy {
         super.postInit(event);
     }
 
+    @Override
+    public void openTutorialBook() {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiTutorialBook());
+    }
 }

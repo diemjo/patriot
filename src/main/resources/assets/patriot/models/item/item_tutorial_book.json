@@ -1,0 +1,6 @@
+{
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "patriot:items/item_tutorial_book"
+	}
+}
