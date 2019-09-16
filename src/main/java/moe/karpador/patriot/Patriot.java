@@ -89,6 +89,7 @@ public class Patriot {
                 try {
                     Thread.sleep(1000);
                     syncManaWithNewPlayer(event); // sync mana later to give client time to load world
+                    itemsOnFirstJoin((EntityPlayer)event.getEntity());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -116,6 +117,16 @@ public class Patriot {
             PatriotPacketHandler.wrapper.sendTo(newPlayerPantsuMsg, (EntityPlayerMP) player); // on server you can just cast to EntityPlayerMP
         }
     }
+
+    // items new player receives on first join in the game or after death
+    private static void itemsOnFirstJoin(EntityPlayer newPlayer) {
+        IMana mana = newPlayer.getCapability(ManaProvider.MANA_CAP, null);
+        if(mana != null && mana.isFirstJoin()) {
+            newPlayer.addItemStackToInventory(new ItemStack(ModItems.itemTutorialBook));
+            mana.setIsFirstJoin(false);
+        }
+    }
+
     /*// Allows for the capability to persist after death.
     @SubscribeEvent
     public static void clonePlayer(PlayerEvent.Clone event) {
