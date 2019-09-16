@@ -15,7 +15,7 @@ public class GuiTutorialBook extends GuiScreen {
     private final int bookImageHeight = 192;
     private final int bookImageWidth = 192;
     private int currPage = 0;
-    private static final int bookTotalPages = 5;
+    private static final int bookTotalPages = 6;
     private static ResourceLocation[] bookPageTextures = new ResourceLocation[bookTotalPages];
     private static String[] stringPageText = new String[bookTotalPages];
     private GuiButton buttonDone;
@@ -28,12 +28,14 @@ public class GuiTutorialBook extends GuiScreen {
         bookPageTextures[2] = new ResourceLocation(Patriot.MODID+":textures/gui/book.png");
         bookPageTextures[3] = new ResourceLocation(Patriot.MODID+":textures/gui/book.png");
         bookPageTextures[4] = new ResourceLocation(Patriot.MODID+":textures/gui/book_megumin.png");
+        bookPageTextures[5] = new ResourceLocation(Patriot.MODID+":textures/gui/book_crafting_patriot.png");
 
         stringPageText[0] = "hello there";
         stringPageText[1] = "general kenobi";
         stringPageText[2] = "it's over anakin I have the high ground";
         stringPageText[3] = "don't underestimate my power";
         stringPageText[4] = "";
+        stringPageText[5] = "Patriot\n\n\n\n\n\n\n\nThe legendary one and only Patriot. Traditionally used to whack the head of someone who pisses you off.";
     }
 
     /**
@@ -75,8 +77,8 @@ public class GuiTutorialBook extends GuiScreen {
     public void drawScreen(int parWidth, int parHeight, float p_73863_3_)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        if (currPage == 4) {
-            mc.getTextureManager().bindTexture(bookPageTextures[4]);
+        if (currPage >= 4) {
+            mc.getTextureManager().bindTexture(bookPageTextures[currPage]);
         }
         else {
             mc.getTextureManager().bindTexture(bookPageTextures[0]);
