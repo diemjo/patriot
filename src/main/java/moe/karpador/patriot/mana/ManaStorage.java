@@ -13,6 +13,7 @@ public class ManaStorage implements Capability.IStorage<IMana> {
     private static final String ultimateExplosion = "ULTIMATEEXPLOSION";
     private static final String hasPantsu = "HASPANTSU";
     private static final String isFirstJoin = "ISFIRSTJOIN";
+    private static final String pantsuCooldownCounter = "PANTSUCOOLDOWNCOUNTER";
 
     @Override
     public NBTBase writeNBT(Capability<IMana> capability, IMana iMana, EnumFacing enumFacing) {
@@ -21,6 +22,7 @@ public class ManaStorage implements Capability.IStorage<IMana> {
         saveData.setBoolean(ultimateExplosion, iMana.hasUltimateExplosion());
         saveData.setBoolean(hasPantsu, iMana.hasPantsu());
         saveData.setBoolean(isFirstJoin, iMana.isFirstJoin());
+        saveData.setInteger(pantsuCooldownCounter, iMana.getPantsuCooldownCounter());
         return saveData;
         //return new NBTTagInt(iMana.getMana());
     }
@@ -33,6 +35,7 @@ public class ManaStorage implements Capability.IStorage<IMana> {
             iMana.setUltimateExplosion(saveData.getBoolean(ultimateExplosion));
             iMana.setPantsu(saveData.getBoolean(hasPantsu));
             iMana.setIsFirstJoin(saveData.getBoolean(isFirstJoin));
+            iMana.setPantsuCooldownCounter(saveData.getInteger(pantsuCooldownCounter));
         }
         else if(nbtBase instanceof NBTTagInt) { // restore data from old save
             iMana.setMana(((NBTPrimitive)nbtBase).getInt(), false);
