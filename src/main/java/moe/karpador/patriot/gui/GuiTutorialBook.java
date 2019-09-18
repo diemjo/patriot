@@ -35,7 +35,11 @@ public class GuiTutorialBook extends GuiScreen {
         stringPageText[2] = "it's over anakin I have the high ground";
         stringPageText[3] = "don't underestimate my power";
         stringPageText[4] = "";
-        stringPageText[5] = "Patriot\n\n\n\n\n\n\n\nThe legendary one and only Patriot. Traditionally used to whack the head of someone who pisses you off.";
+        stringPageText[5] = makePageText("Patriot", "The legendary one and only Patriot. Traditionally used to whack the head of someone who pisses you off.");
+    }
+
+    private String makePageText(String title, String description) {
+        return String.format("%s\n\n\n\n\n\n\n\n%s", title, description);
     }
 
     /**
