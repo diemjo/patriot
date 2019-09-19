@@ -17,6 +17,7 @@ public class Mana implements IMana {
     private int pantsuCooldownCounter = 0;
     private boolean hasPantsu = true;
     private boolean exhausted = false;
+    private boolean isFirstJoin = true;
 
     @Override
     public boolean enoughMana() {
@@ -97,5 +98,16 @@ public class Mana implements IMana {
     public void setExhausted(boolean value) {
         exhausted = value;
     }
+
+    @Override
+    public boolean isFirstJoin() {
+        return isFirstJoin;
+    }
+
+    @Override
+    public void setIsFirstJoin(boolean value) {
+        isFirstJoin = value;
+    }
+
 }
 

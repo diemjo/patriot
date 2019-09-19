@@ -17,4 +17,6 @@ public interface IMana {
     public void pantsuTick(EntityPlayer target);
     public boolean isExhausted();
     public void setExhausted(boolean value);
+    public boolean isFirstJoin();
+    public void setIsFirstJoin(boolean value);
 }

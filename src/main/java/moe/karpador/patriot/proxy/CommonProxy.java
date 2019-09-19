@@ -29,4 +29,5 @@ public class CommonProxy {
 
     }
 
+    public void openTutorialBook() {} // only client displays book
 }

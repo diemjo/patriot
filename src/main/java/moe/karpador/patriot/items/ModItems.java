@@ -40,6 +40,7 @@ public class ModItems {
     public static ItemGenericPantsu itemGenericPantsu;
     public static ItemMeguminPantsu itemMeguminPantsu;
     public static ItemStealMagic itemStealMagic;
+    public static ItemTutorialBook itemTutorialBook;
 
     private static List<Item> items = new ArrayList<>();
 
@@ -81,6 +82,9 @@ public class ModItems {
 
         itemStealMagic = new ItemStealMagic();
         items.add(itemStealMagic);
+
+        itemTutorialBook = new ItemTutorialBook();
+        items.add(itemTutorialBook);
     }
 
     @SideOnly(Side.CLIENT)
@@ -112,6 +116,10 @@ public class ModItems {
         ModelResourceLocation modelItemMagicCoreOfExplosion = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemMagicCoreOfExplosion.NAME), "inventory");
         ModelLoader.registerItemVariants(itemMagicCoreOfExplosion, modelItemMagicCoreOfExplosion);
         mesher.register(itemMagicCoreOfExplosion, 0, modelItemMagicCoreOfExplosion);
+
+        ModelResourceLocation modelItemTutorialBook = new ModelResourceLocation(String.format("%s%s", Patriot.RESOURCE_PREFIX, ItemTutorialBook.NAME), "inventory");
+        ModelLoader.registerItemVariants(itemTutorialBook, modelItemTutorialBook);
+        mesher.register(itemTutorialBook, 0,modelItemTutorialBook);
 
 
         registerArmor(itemMeguminHat,mesher,itemMeguminHat.name);
